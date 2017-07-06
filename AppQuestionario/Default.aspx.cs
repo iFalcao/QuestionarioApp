@@ -11,6 +11,14 @@ namespace AppQuestionario
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ddlTipo.DataSource = 
+            }
+        }
+
+        protected void btnCriar_Click(object sender, EventArgs e)
+        {
 
         }
     }
