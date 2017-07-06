@@ -7,18 +7,18 @@ namespace AppQuestionario.Models
 {
     public class Pergunta
     {
-        private Questionario questionario;
         private int id;
+        private int idQuestionario;
         private char tipo;
         private string descricao;
         private char obrigatoria;
         private int ordem;
 
         // Construtores
-        public Pergunta(Questionario quest, int id, string descricao, char tipo, char obrigatoria, int ordem)
+        public Pergunta(int id, int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
         {
-            this.Questionario = quest;
             this.Id = id;
+            this.IdQuestionario = idQuestionario;
             this.Descricao = descricao;
             this.Tipo = tipo;
             this.Obrigatoria = obrigatoria;
@@ -51,11 +51,12 @@ namespace AppQuestionario.Models
             get { return id; }
             set { id = value; }
         }
-        public Questionario Questionario
+        public int IdQuestionario
         {
-            get { return questionario; }
-            set { questionario = value; }
+            get { return idQuestionario; }
+            set { idQuestionario = value; }
         }
         
+     
     }
 }

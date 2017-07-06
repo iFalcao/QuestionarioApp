@@ -96,7 +96,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao perg INNER JOIN QST_QUESTIONARIO_ifalcao quest ON perg.per_id_questionario = quest.qst_id_questionario WHERE quest.qst_id_questionario = @id", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM PER_PERGUNTA_ifalcao perg INNER JOIN QST_QUESTIONARIO_ifalcao quest ON perg.per_id_questionario = quest.qst_id_questionario WHERE quest.qst_id_questionario = @id", conexao);
                     comando.Parameters.Add(new SqlParameter("@id", idQuestionario));
 
                     conexao.Open();

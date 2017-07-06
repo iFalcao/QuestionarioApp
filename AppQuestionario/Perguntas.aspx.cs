@@ -10,9 +10,11 @@ namespace AppQuestionario
 {
     public partial class Perguntas : System.Web.UI.Page
     {
+        QuestionarioDAO questDAO = new QuestionarioDAO();
+        PerguntaDAO perguntaDAO = new PerguntaDAO();
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            QuestionarioDAO questDAO = new QuestionarioDAO();
 
             if (!IsPostBack)
             {
@@ -23,9 +25,15 @@ namespace AppQuestionario
             }
         }
 
-        protected void ddlQuestionarios_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnCriar_Click(object sender, EventArgs e)
         {
-            
+
+        }
+
+        protected void btnListarPerguntas_Click(object sender, EventArgs e)
+        {
+            tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(Convert.ToInt32(ddlQuestionarios.SelectedValue));
+            tabelaPerguntas.DataBind();
         }
     }
 }
