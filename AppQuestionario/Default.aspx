@@ -3,12 +3,13 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="jumbotron">
-        <h1>QuestApp</h1>
+        <h1 class="text-center">QuestApp</h1>
     </div>
          <div class="form-horizontal col-md-12"">
              <h4>Criar Questionário.</h4>
             <hr />
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
+             <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger"></asp:Label>
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="Nome" CssClass="col-md-2">Nome do Questionário</asp:Label>
                 <div class="col-md-10">
@@ -40,12 +41,12 @@
                 </div>
             </div>
         </div>
-    <asp:GridView ID="tabelaQuestionarios" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+    <asp:GridView ID="tabelaQuestionarios" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaQuestionarios_RowCommand">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:TemplateField HeaderText="Id">
                 <ItemTemplate>
-                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("id") %>'></asp:Label>
+                    <asp:Label ID="lblId" runat="server" Text='<%# Eval("id") %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Nome">

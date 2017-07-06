@@ -65,5 +65,73 @@ namespace AppQuestionario.DAO
             return listaQuestionarios;
         }
 
+        public bool deletarQuestionario(int id)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("DELETE FROM QST_QUESTIONARIO_ifalcao WHERE qst_id_questionario = @id", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", id));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
+        }
+
+        public bool hasAnyQuestions(int idQuestionario)
+        {
+            bool possui = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao perg INNER JOIN QST_QUESTIONARIO_ifalcao quest ON perg.per_id_questionario = quest.qst_id_questionario WHERE quest.qst_id_questionario = @id", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", idQuestionario));
+
+                    conexao.Open();
+                    if (Convert.ToInt32(comando.ExecuteScalar()) > 0)
+                    {
+                        possui = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return possui;
+        }
+
+        public static int getLastId()
+        {
+            int resultado = -1;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("SELECT MAX(qst_id_questionario) FROM QST_QUESTIONARIO_ifalcao", conexao);
+
+                    conexao.Open();
+                    resultado = Convert.ToInt32(comando.ExecuteScalar());
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return resultado;
+        }
+
     }
 }

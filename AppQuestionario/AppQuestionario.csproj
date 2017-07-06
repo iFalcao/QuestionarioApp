@@ -162,6 +162,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
     <None Include="Scripts\jquery-1.10.2-vsdoc.js" />
+    <Content Include="Perguntas.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -278,6 +279,13 @@
     <Compile Include="Models\OpcaoResposta.cs" />
     <Compile Include="Models\Pergunta.cs" />
     <Compile Include="Models\Questionario.cs" />
+    <Compile Include="Perguntas.aspx.cs">
+      <DependentUpon>Perguntas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perguntas.aspx.designer.cs">
+      <DependentUpon>Perguntas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppQuestionario.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace AppQuestionario.Models
         private string nome;
         private char tipo;
         private string link;
-        private static int count;
+        private static int count = QuestionarioDAO.getLastId();
 
         // Construtores
 
