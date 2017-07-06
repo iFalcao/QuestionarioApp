@@ -57,15 +57,23 @@ namespace AppQuestionario
                 {
                     int index = Convert.ToInt32(e.CommandArgument);
                     int id = Convert.ToInt32((tabelaQuestionarios.Rows[index].FindControl("lblId") as Label).Text);
-                    if (questDAO.deletarQuestionario(id))
+                    if (questDAO.possuiAlgumaPergunta(id))
                     {
-                        Response.Write("<script>alert('Questionário excluído com sucesso!');</script>");
-                        carregaValores();
+                        Response.Write("<script>alert('Questionário possui uma pergunta e portanto não pode ser deletado!');</script>");
                     }
                     else
                     {
-                        Response.Write("<script>alert('Questionário não deletado!');</script>");
+                        if (questDAO.deletarQuestionario(id))
+                        {
+                            Response.Write("<script>alert('Questionário excluído com sucesso!');</script>");
+                            carregaValores();
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Questionário não deletado!');</script>");
+                        }
                     }
+                   
                 }
                 catch (Exception)
                 {

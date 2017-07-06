@@ -89,7 +89,7 @@ namespace AppQuestionario.DAO
             return sucesso;
         }
 
-        public bool hasAnyQuestions(int idQuestionario)
+        public bool possuiAlgumaPergunta(int idQuestionario)
         {
             bool possui = false;
 
