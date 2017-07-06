@@ -14,9 +14,21 @@ namespace AppQuestionario.Models
         private static int count;
 
         // Construtores
+
+        // Criando um novo questionário não é passado um id no construtor
         public Questionario(string nome, char tipo, string link)
         {
-            this.Id = ++this.Count;
+            this.Count++;
+            this.Id = this.Count;
+            this.Nome = nome;
+            this.Tipo = tipo;
+            this.Link = link;
+        }
+
+        // Recuperando a lista de Questionários do Banco de Dados não altera no count de objetos criados
+        public Questionario(int id, string nome, char tipo, string link)
+        {
+            this.Id = id;
             this.Nome = nome;
             this.Tipo = tipo;
             this.Link = link;

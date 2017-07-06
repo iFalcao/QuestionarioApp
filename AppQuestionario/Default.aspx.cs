@@ -17,9 +17,16 @@ namespace AppQuestionario
         {
             if (!IsPostBack)
             {
-                ddlTipos.Items.Add(new ListItem("Pesquisa", "P"));
-                ddlTipos.Items.Add(new ListItem("Avaliação", "A"));
+                carregaValores();
             }
+        }
+
+        private void carregaValores()
+        {
+            tabelaQuestionarios.DataSource = questDAO.getAllQuestionarios();
+            tabelaQuestionarios.DataBind();
+            ddlTipos.Items.Add(new ListItem("Pesquisa", "P"));
+            ddlTipos.Items.Add(new ListItem("Avaliação", "A"));
         }
 
         protected void btnCriar_Click(object sender, EventArgs e)
@@ -28,6 +35,7 @@ namespace AppQuestionario
             if (questDAO.criarQuestionario(novoQuestionario))
             {
                 Response.Write("<script>alert('Questionário Criado com Sucesso!')<script>");
+                carregaValores();
             }
         }
     }
