@@ -11,11 +11,12 @@ namespace AppQuestionario.Models
         private string nome;
         private char tipo;
         private string link;
+        private static int count;
 
         // Construtores
-        public Questionario(int id, string nome, char tipo, string link)
+        public Questionario(string nome, char tipo, string link)
         {
-            this.Id = id;
+            this.Id = ++this.Count;
             this.Nome = nome;
             this.Tipo = tipo;
             this.Link = link;
@@ -26,6 +27,11 @@ namespace AppQuestionario.Models
         {
             get { return id; }
             set { id = value; }
+        }
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
         }
 
         public string Nome
