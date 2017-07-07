@@ -10,52 +10,52 @@
 namespace AppQuestionario {
     
     
-    public partial class Perguntas {
+    public partial class Respostas {
         
         /// <summary>
-        /// Label1 control.
+        /// lblX control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblX;
         
         /// <summary>
-        /// ddlQuestionarios control.
+        /// ddlPerguntas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlQuestionarios;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPerguntas;
         
         /// <summary>
-        /// btnListarPerguntas control.
+        /// btnListarRespostas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnListarPerguntas;
+        protected global::System.Web.UI.WebControls.Button btnListarRespostas;
         
         /// <summary>
-        /// tabelaPerguntas control.
+        /// tabelaRespostas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView tabelaPerguntas;
+        protected global::System.Web.UI.WebControls.GridView tabelaRespostas;
         
         /// <summary>
-        /// lblIdQuestionario control.
+        /// lblIdPergunta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIdQuestionario;
+        protected global::System.Web.UI.WebControls.Label lblIdPergunta;
         
         /// <summary>
         /// txtDescricao control.
@@ -67,22 +67,13 @@ namespace AppQuestionario {
         protected global::System.Web.UI.WebControls.TextBox txtDescricao;
         
         /// <summary>
-        /// ddlTipos control.
+        /// chkCorreta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipos;
-        
-        /// <summary>
-        /// chkObrigatoria control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkObrigatoria;
+        protected global::System.Web.UI.WebControls.CheckBox chkCorreta;
         
         /// <summary>
         /// txtOrdem control.

@@ -31,33 +31,38 @@ namespace AppQuestionario
 
         private void carregarPerguntas(int idQuestionario)
         {
-
             tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
             tabelaPerguntas.DataBind();
         }
 
         protected void btnCriar_Click(object sender, EventArgs e)
         {
-            char obrigatoria = chkObrigatoria.Checked ? 'S' : 'N';
-            Pergunta novaPergunta = new Pergunta(Convert.ToInt32(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, int.Parse(txtOrdem.Text));
-            if (perguntaDAO.possuiOrdemDiferente(novaPergunta))
+            if (lblIdQuestionario.Text == "")
             {
-                if (perguntaDAO.criarPergunta(novaPergunta))
-                {
-                    Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
-                    carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
-                }
-                else
-                {
-                    Response.Write("<script>alert('Não foi possível criar a pergunta!');</script>");
-                }
+                Response.Write("<script>alert('Precisa selecionar um questionário antes!');</script>");
             }
             else
             {
-                Response.Write("<script>alert('Já existe uma pergunta com essa ordem! Mude a ordem e tente novamente.');</script>");
+                char obrigatoria = chkObrigatoria.Checked ? 'S' : 'N';
+                Pergunta novaPergunta = new Pergunta(Convert.ToInt32(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, int.Parse(txtOrdem.Text));
+                if (perguntaDAO.possuiOrdemDiferente(novaPergunta))
+                {
+                    if (perguntaDAO.criarPergunta(novaPergunta))
+                    {
+                        Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
+                        carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Não foi possível criar a pergunta!');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Já existe uma pergunta com essa ordem! Mude a ordem e tente novamente.');</script>");
+                }
+            
             }
-            
-            
         }
 
         protected void btnListarPerguntas_Click(object sender, EventArgs e)
@@ -68,12 +73,13 @@ namespace AppQuestionario
 
         protected void tabelaPerguntas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = Convert.ToInt32((tabelaPerguntas.Rows[index].FindControl("lblId") as Label).Text);
+
             if (e.CommandName == "Excluir")
             {
                 try
                 {
-                    int index = Convert.ToInt32(e.CommandArgument);
-                    int id = Convert.ToInt32((tabelaPerguntas.Rows[index].FindControl("lblId") as Label).Text);
                     if (perguntaDAO.possuiAlgumaOpcaoResposta(id))
                     {
                         Response.Write("<script>alert('A pergunta possui uma opção de resposta e portanto não pode ser deletada!');</script>");
@@ -90,12 +96,16 @@ namespace AppQuestionario
                             Response.Write("<script>alert('Não foi possível deletar o questionário!');</script>");
                         }
                     }
-
                 }
                 catch (Exception)
                 {
                     Response.Write("<script>alert('Erro ao executar método');</script>");
                 }
+            }
+            else if (e.CommandName == "VisualizarRespostas")
+            {
+                Session["perguntaSelecionada"] = id;
+                Response.Redirect("Respostas.aspx");
             }
         }
     }

@@ -60,7 +60,7 @@ namespace AppQuestionario.DAO
                 }
                 catch (Exception)
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do processo.');</script>");
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do processo getAllQuestionarios.');</script>");
                 }
             return listaQuestionarios;
         }

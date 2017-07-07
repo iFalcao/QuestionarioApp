@@ -2,22 +2,38 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AppQuestionario.DAO;
 
 namespace AppQuestionario.Models
 {
     public class OpcaoResposta
     {
-        private Pergunta perguntaRelacionada;
+        private int idPerguntaRelacionada;
         private int id;
         private char correta;
         private string descricao;
         private int ordem;
+        private static int count = OpcaoRespostaDAO.getLastId();
+
 
         // Construtores
-        public OpcaoResposta(Pergunta pergunta, int id, string descricao, char correta, char obrigatoria, int ordem)
+
+        // Recuperando a lista de Respostas do Banco de Dados não altera no count de objetos criados
+        public OpcaoResposta(int id, int idPergunta, string descricao, char correta, int ordem)
         {
-            this.PerguntaRelacionada = pergunta;
             this.Id = id;
+            this.IdPerguntaRelacionada = idPergunta;
+            this.Descricao = descricao;
+            this.Correta = correta;
+            this.Ordem = ordem;
+        }
+
+        // Criando um novo questionário não é passado um id no construtor
+        public OpcaoResposta(int idPergunta, string descricao, char correta, int ordem)
+        {
+            this.Count++;
+            this.Id = this.Count;
+            this.IdPerguntaRelacionada = idPergunta;
             this.Descricao = descricao;
             this.Correta = correta;
             this.Ordem = ordem;
@@ -45,10 +61,15 @@ namespace AppQuestionario.Models
             get { return id; }
             set { id = value; }
         }
-        public Pergunta PerguntaRelacionada
+        public int IdPerguntaRelacionada
         {
-            get { return perguntaRelacionada; }
-            set { perguntaRelacionada = value; }
+            get { return idPerguntaRelacionada; }
+            set { idPerguntaRelacionada = value; }
+        }
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
         }
     }
 }
