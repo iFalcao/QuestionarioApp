@@ -39,5 +39,53 @@ namespace AppQuestionario.DAO
             return listaPerguntas;
         }
 
+        public bool criarPergunta(Pergunta novaPergunta)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("INSERT INTO PER_PERGUNTA_ifalcao VALUES(@id, @idQuestionario, @descricao, @tipo, @obrigatoria, @ordem) ", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", novaPergunta.Id));
+                    comando.Parameters.Add(new SqlParameter("@idQuestionario", novaPergunta.IdQuestionario));
+                    comando.Parameters.Add(new SqlParameter("@descricao", novaPergunta.Descricao));
+                    comando.Parameters.Add(new SqlParameter("@tipo", novaPergunta.Tipo));
+                    comando.Parameters.Add(new SqlParameter("@obrigatoria", novaPergunta.Obrigatoria));
+                    comando.Parameters.Add(new SqlParameter("@ordem", novaPergunta.Ordem));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
+        }
+
+        public static int getLastId()
+        {
+            int resultado = 0;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("SELECT MAX(per_id_questionario) FROM PER_PERGUNTA_ifalcao", conexao);
+
+                    conexao.Open();
+                    resultado = Convert.ToInt32(comando.ExecuteScalar());
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return resultado;
+        }
     }
 }

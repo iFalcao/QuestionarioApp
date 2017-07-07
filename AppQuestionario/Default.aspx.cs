@@ -70,7 +70,7 @@ namespace AppQuestionario
                         }
                         else
                         {
-                            Response.Write("<script>alert('Questionário não deletado!');</script>");
+                            Response.Write("<script>alert('Não foi possível deletar o questionário!');</script>");
                         }
                     }
                    

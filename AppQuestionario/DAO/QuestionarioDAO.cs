@@ -115,7 +115,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            int resultado = -1;
+            int resultado = 0;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
@@ -131,6 +131,33 @@ namespace AppQuestionario.DAO
                 }
 
             return resultado;
+        }
+        // Passa a instância do questionário com os novos atributos mas com o mesmo id
+        public bool editaQuestionario(Questionario questionario)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("UPDATE QST_QUESTIONARIO_ifalcao SET qst_nm_questionario = @nome, qst_tp_questionario = @tipo, qst_ds_link_instrucoes = @link WHERE qst_id_questionario = @id) ", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", questionario.Id));
+                    comando.Parameters.Add(new SqlParameter("@nome", questionario.Nome));
+                    comando.Parameters.Add(new SqlParameter("@tipo", questionario.Tipo));
+                    comando.Parameters.Add(new SqlParameter("@link", questionario.Link));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
         }
 
     }

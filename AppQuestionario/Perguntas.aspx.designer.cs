@@ -49,6 +49,15 @@ namespace AppQuestionario {
         protected global::System.Web.UI.WebControls.GridView tabelaPerguntas;
         
         /// <summary>
+        /// lblIdQuestionario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdQuestionario;
+        
+        /// <summary>
         /// lblError control.
         /// </summary>
         /// <remarks>
@@ -58,13 +67,13 @@ namespace AppQuestionario {
         protected global::System.Web.UI.WebControls.Label lblError;
         
         /// <summary>
-        /// Descricao control.
+        /// txtDescricao control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Descricao;
+        protected global::System.Web.UI.WebControls.TextBox txtDescricao;
         
         /// <summary>
         /// ddlTipos control.

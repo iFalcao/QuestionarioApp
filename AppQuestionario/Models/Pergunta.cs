@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppQuestionario.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,9 +16,9 @@ namespace AppQuestionario.Models
         private int ordem;
 
         // Construtores
-        public Pergunta(int id, int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
+        public Pergunta(int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
         {
-            this.Id = id;
+            this.Id = PerguntaDAO.getLastId() + 1;
             this.IdQuestionario = idQuestionario;
             this.Descricao = descricao;
             this.Tipo = tipo;

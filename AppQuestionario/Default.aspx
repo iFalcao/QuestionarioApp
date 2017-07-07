@@ -65,7 +65,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Tipo">
                     <ItemTemplate>
-                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo") %>'></asp:Label>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals("P") ? "Pesquisa" : "Avaliação" %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>

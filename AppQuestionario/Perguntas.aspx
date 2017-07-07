@@ -27,7 +27,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Tipo">
                 <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo") %>'></asp:Label>
+                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals('U') ? "Única Escolha" : "Múltipla Escolha" %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ordem">
@@ -56,13 +56,19 @@
     <div class="form-horizontal col-md-12">
              <h4>Criar Pergunta.</h4>
             <hr />
+            <div class="form-group">
+                <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-2">Id do Questionário</asp:Label>
+                <div class="col-md-4">
+                    <asp:Label ID="lblIdQuestionario" runat="server" Text=""></asp:Label>
+                </div>
+            </div>
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
              <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger"></asp:Label>
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="Descricao" CssClass="col-md-2">Descrição da Pergunta</asp:Label>
                 <div class="col-md-10">
                     <!-- Create a validation group to allow two different 'forms' -->
-                    <asp:TextBox runat="server" ID="Descricao" CssClass="form-control" ValidationGroup="Two"/>
+                    <asp:TextBox runat="server" ID="txtDescricao" CssClass="form-control" ValidationGroup="Two"/>
                     <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Descricao"
                         CssClass="text-danger" ErrorMessage="A descrição é obrigatória" />
                 </div>
@@ -78,7 +84,7 @@
             <div class="form-group">
                 <asp:Label runat="server" CssClass="col-md-2">A pergunta é obrigatória?</asp:Label>
                 <div class="col-md-4">
-                    <asp:CheckBox ID="chkObrigatoria" runat="server" />
+                    <asp:CheckBox ID="chkObrigatoria" runat="server" />&nbsp;&nbsp;&nbsp;Sim
                 </div>
             </div>
             <div class="form-group">
