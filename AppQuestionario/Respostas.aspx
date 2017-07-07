@@ -22,7 +22,7 @@
                         <asp:Label ID="Label2" runat="server" Text='<%# Eval("descricao") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Obrigatória">
+                <asp:TemplateField HeaderText="Correta">
                     <ItemTemplate>
                         <asp:Label ID="Label3" runat="server" Text='<%# Eval("correta").Equals(Convert.ToChar("S")) ? "Sim" : "Não" %>'></asp:Label>
                     </ItemTemplate>

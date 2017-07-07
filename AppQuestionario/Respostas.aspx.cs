@@ -34,6 +34,14 @@ namespace AppQuestionario
         private void carregarRespostas(int idPergunta)
         {
             tabelaRespostas.DataSource = opcaoDAO.listarOpcoesDaResposta(idPergunta);
+            if (opcaoDAO.possuiOpcaoCorretaParaPergunta(idPergunta))
+            {
+                chkCorreta.Enabled = false;
+            }
+            else
+            {
+                chkCorreta.Enabled = true;
+            }
             tabelaRespostas.DataBind();
         }
 
