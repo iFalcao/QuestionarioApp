@@ -80,9 +80,9 @@ namespace AppQuestionario
                     }
                     else
                     {
-                        if (questDAO.deletarQuestionario(id))
+                        if (perguntaDAO.deletarPergunta(id))
                         {
-                            Response.Write("<script>alert('Questionário excluído com sucesso!');</script>");
+                            Response.Write("<script>alert('Pergunta excluída com sucesso!');</script>");
                             carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
                         }
                         else

@@ -27,7 +27,7 @@ namespace AppQuestionario.DAO
                         {
                             object[] registro = new object[reader.FieldCount];
                             reader.GetSqlValues(registro);
-                            Pergunta novo = new Pergunta(Convert.ToInt32(reader.GetDecimal(1)), reader.GetString(2), Convert.ToChar(registro[3].ToString()), Convert.ToChar(registro[4].ToString()), reader.GetInt32(5));
+                            Pergunta novo = new Pergunta(Convert.ToInt32(reader.GetDecimal(0)), Convert.ToInt32(reader.GetDecimal(1)), reader.GetString(2), Convert.ToChar(registro[3].ToString()), Convert.ToChar(registro[4].ToString()), reader.GetInt32(5));
                             listaPerguntas.Add(novo);
                         }
                 }
@@ -75,7 +75,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT MAX(per_id_questionario) FROM PER_PERGUNTA_ifalcao", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT COUNT(per_id_questionario) FROM PER_PERGUNTA_ifalcao", conexao);
 
                     conexao.Open();
                     resultado = Convert.ToInt32(comando.ExecuteScalar());
@@ -135,6 +135,30 @@ namespace AppQuestionario.DAO
                 }
 
             return possui;
+        }
+
+        public bool deletarPergunta(int idPergunta)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("DELETE FROM PER_PERGUNTA_ifalcao WHERE per_id_pergunta = @id", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", idPergunta));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
         }
     }
 }

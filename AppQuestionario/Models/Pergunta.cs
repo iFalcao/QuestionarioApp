@@ -15,10 +15,26 @@ namespace AppQuestionario.Models
         private char obrigatoria;
         private int ordem;
 
+        private static int count = PerguntaDAO.getLastId();
+
         // Construtores
+
+        // Criando um novo questionário não é passado um id no construtor
         public Pergunta(int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
         {
-            this.Id = 1 + PerguntaDAO.getLastId();
+            this.Count++;
+            this.Id = this.Count;
+            this.IdQuestionario = idQuestionario;
+            this.Descricao = descricao;
+            this.Tipo = tipo;
+            this.Obrigatoria = obrigatoria;
+            this.Ordem = ordem;
+        }
+
+        // Recuperando a lista de Perguntas do Banco de Dados não altera no count de objetos criados
+        public Pergunta(int idPergunta, int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
+        {
+            this.Id = idPergunta;
             this.IdQuestionario = idQuestionario;
             this.Descricao = descricao;
             this.Tipo = tipo;
@@ -57,7 +73,11 @@ namespace AppQuestionario.Models
             get { return idQuestionario; }
             set { idQuestionario = value; }
         }
-        
+        public int Count
+        {
+            get { return count; }
+            set { count = value; }
+        }
      
     }
 }
