@@ -23,29 +23,80 @@ namespace AppQuestionario
                 ddlQuestionarios.DataTextField = "Nome";
                 ddlQuestionarios.DataValueField = "Id";
                 ddlQuestionarios.DataBind();
+                ddlTipos.Items.Clear();
+                ddlTipos.Items.Add(new ListItem("Única Escolha", "U"));
+                ddlTipos.Items.Add(new ListItem("Múltipla Escolha", "M"));
             }
+        }
+
+        private void carregarPerguntas(int idQuestionario)
+        {
+
+            tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
+            tabelaPerguntas.DataBind();
         }
 
         protected void btnCriar_Click(object sender, EventArgs e)
         {
             char obrigatoria = chkObrigatoria.Checked ? 'S' : 'N';
             Pergunta novaPergunta = new Pergunta(Convert.ToInt32(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, int.Parse(txtOrdem.Text));
-            if (perguntaDAO.criarPergunta(novaPergunta))
+            if (perguntaDAO.possuiOrdemDiferente(novaPergunta))
             {
-                Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
+                if (perguntaDAO.criarPergunta(novaPergunta))
+                {
+                    Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
+                    carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
+                }
+                else
+                {
+                    Response.Write("<script>alert('Não foi possível criar a pergunta!');</script>");
+                }
             }
             else
             {
-                Response.Write("<script>alert('Não foi possível criar a pergunta!');</script>");
+                Response.Write("<script>alert('Já existe uma pergunta com essa ordem! Mude a ordem e tente novamente.');</script>");
             }
+            
             
         }
 
         protected void btnListarPerguntas_Click(object sender, EventArgs e)
         {
             lblIdQuestionario.Text = ddlQuestionarios.SelectedValue;
-            tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(Convert.ToInt32(ddlQuestionarios.SelectedValue));
-            tabelaPerguntas.DataBind();
+            carregarPerguntas(Convert.ToInt32(ddlQuestionarios.SelectedValue));
+        }
+
+        protected void tabelaPerguntas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Excluir")
+            {
+                try
+                {
+                    int index = Convert.ToInt32(e.CommandArgument);
+                    int id = Convert.ToInt32((tabelaPerguntas.Rows[index].FindControl("lblId") as Label).Text);
+                    if (perguntaDAO.possuiAlgumaOpcaoResposta(id))
+                    {
+                        Response.Write("<script>alert('A pergunta possui uma opção de resposta e portanto não pode ser deletada!');</script>");
+                    }
+                    else
+                    {
+                        if (questDAO.deletarQuestionario(id))
+                        {
+                            Response.Write("<script>alert('Questionário excluído com sucesso!');</script>");
+                            carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Não foi possível deletar o questionário!');</script>");
+                        }
+                    }
+
+                }
+                catch (Exception)
+                {
+                    Response.Write("<script>alert('Erro ao executar método');</script>");
+                }
+            }
         }
     }
 }

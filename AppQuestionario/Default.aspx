@@ -65,12 +65,13 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Tipo">
                     <ItemTemplate>
-                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals("P") ? "Pesquisa" : "Avaliação" %>'></asp:Label>
+                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals(Convert.ToChar("P")) ? "Pesquisa" : "Avaliação" %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:Button ID="btnExcluir" runat="server" Text="Deletar Questionário" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
+                        <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-warning" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Editar"/>
+                        <asp:Button ID="btnExcluir" runat="server" Text="Deletar" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
@@ -87,5 +88,43 @@
         </asp:GridView>
         </div>
     </div>
+    <div class="row">
+            <div class="form-horizontal col-md-6"">
+             <h4>Editar Questionário.</h4>
+            <hr />
+            <asp:ValidationSummary runat="server" CssClass="text-danger" />
+             <asp:Label ID="Label1" runat="server" Text="" CssClass="text-danger"></asp:Label>
+            <div class="form-group">
+                <asp:Label runat="server" AssociatedControlID="Nome" CssClass="col-md-4">Nome do Questionário</asp:Label>
+                <div class="col-md-8">
+                    <!-- Create a validation group to allow two different 'forms' -->
+                    <asp:TextBox runat="server" ID="TextBox1" CssClass="form-control" ValidationGroup="Two"/>
+                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Nome"
+                        CssClass="text-danger" ErrorMessage="O nome é obrigatório" />
+                </div>
+            </div>
+             <div class="form-group">
+                <asp:Label runat="server" AssociatedControlID="Link" CssClass="col-md-4">Link com instruções</asp:Label>
+                <div class="col-md-8">
+                    <asp:TextBox runat="server" ID="TextBox2" CssClass="form-control" ValidationGroup="Two"/>
+                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Link"
+                        CssClass="text-danger" ErrorMessage="O link é obrigatório" />
+                </div>
+            </div>
+            <div class="form-group">
+                <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-4">Tipo de Questionário</asp:Label>
+                <div class="col-md-4">
+                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" ValidationGroup="Two"></asp:DropDownList>
+                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="ddlTipos"
+                        CssClass="text-danger" ErrorMessage="O tipo é obrigatório" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <asp:Button ID="Button1" runat="server" Text="Criar Questionário" OnClick="btnCriar_Click"  CssClass="btn btn-success" />
+                </div>
+            </div>
+        </div>
+     </div>
 
 </asp:Content>

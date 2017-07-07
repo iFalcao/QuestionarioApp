@@ -7,7 +7,7 @@
     <br />
     <asp:Button ID="btnListarPerguntas" runat="server" Text="Listar Perguntas" CssClass="btn btn-default" OnClick="btnListarPerguntas_Click"/>
     <hr />
-    <asp:GridView ID="tabelaPerguntas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" >
+    <asp:GridView ID="tabelaPerguntas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaPerguntas_RowCommand" >
         <AlternatingRowStyle BackColor="White" />
         <Columns>
             <asp:TemplateField HeaderText="Id">
@@ -22,12 +22,12 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Obrigatória">
                 <ItemTemplate>
-                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("obrigatoria") %>'></asp:Label>
+                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("obrigatoria").Equals(Convert.ToChar("S")) ? "Sim" : "Não" %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Tipo">
                 <ItemTemplate>
-                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals('U') ? "Única Escolha" : "Múltipla Escolha" %>'></asp:Label>
+                    <asp:Label ID="Label4" runat="server"  Text='<%# Eval("tipo").Equals(Convert.ToChar("U")) ? "Única Escolha" : "Múltipla Escolha" %>'></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Ordem">
@@ -65,11 +65,11 @@
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
              <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger"></asp:Label>
             <div class="form-group">
-                <asp:Label runat="server" AssociatedControlID="Descricao" CssClass="col-md-2">Descrição da Pergunta</asp:Label>
+                <asp:Label runat="server" AssociatedControlID="txtDescricao" CssClass="col-md-2">Descrição da Pergunta</asp:Label>
                 <div class="col-md-10">
                     <!-- Create a validation group to allow two different 'forms' -->
                     <asp:TextBox runat="server" ID="txtDescricao" CssClass="form-control" ValidationGroup="Two"/>
-                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Descricao"
+                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="txtDescricao"
                         CssClass="text-danger" ErrorMessage="A descrição é obrigatória" />
                 </div>
             </div>

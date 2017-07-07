@@ -18,7 +18,7 @@ namespace AppQuestionario.Models
         // Construtores
         public Pergunta(int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
         {
-            this.Id = PerguntaDAO.getLastId() + 1;
+            this.Id = 1 + PerguntaDAO.getLastId();
             this.IdQuestionario = idQuestionario;
             this.Descricao = descricao;
             this.Tipo = tipo;
