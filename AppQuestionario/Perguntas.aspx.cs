@@ -32,6 +32,15 @@ namespace AppQuestionario
         private void carregarPerguntas(int idQuestionario)
         {
             tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
+            if (questDAO.ehAvaliacao(idQuestionario))
+            {
+                // Não permite selecionar o tipo de múltipla escolha para questionários do tipo AVALIAÇÃO
+                ddlTipos.Enabled = false;
+            }
+            else
+            {
+                ddlTipos.Enabled = true;
+            }
             tabelaPerguntas.DataBind();
         }
 

@@ -132,6 +132,7 @@ namespace AppQuestionario.DAO
 
             return resultado;
         }
+
         // Passa a instância do questionário com os novos atributos mas com o mesmo id
         public bool editaQuestionario(Questionario questionario)
         {
@@ -160,5 +161,31 @@ namespace AppQuestionario.DAO
             return sucesso;
         }
 
+
+        public bool ehAvaliacao(int idQuestionario)
+        {
+            bool questionarioDeAvaliacao = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("SELECT * FROM QST_QUESTIONARIO_ifalcao WHERE qst_id_questionario = @id", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", idQuestionario));
+                    conexao.Open();
+                    using (SqlDataReader reader = comando.ExecuteReader())
+                        while (reader.Read())
+                        {
+                            object[] registro = new object[reader.FieldCount];
+                            reader.GetSqlValues(registro);
+                            questionarioDeAvaliacao = Convert.ToChar(registro[2].ToString()).Equals('A') ? true : false;
+                        }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do processo ehAvaliacao.');</script>");
+                }
+
+            return questionarioDeAvaliacao;
+        }
     }
 }
