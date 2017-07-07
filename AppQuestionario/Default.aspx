@@ -7,11 +7,15 @@
     </div>
     <div class="row">
          <div class="form-horizontal col-md-6"">
-             <h4>Criar Questionário.</h4>
+             <asp:Label ID="lblAcao" CssClass="h4" runat="server" Text="CriarQuestionario"></asp:Label>
             <hr />
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
              <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger"></asp:Label>
             <div class="form-group">
+                <asp:Label ID="lblEditingId" runat="server"  CssClass="col-md-4">Id do Questionário</asp:Label>
+                <asp:Label ID="lblIdEdit" runat="server" Text=""></asp:Label>
+            </div>
+            <div>
                 <asp:Label runat="server" AssociatedControlID="Nome" CssClass="col-md-4">Nome do Questionário</asp:Label>
                 <div class="col-md-8">
                     <!-- Create a validation group to allow two different 'forms' -->
@@ -39,6 +43,7 @@
             <div class="form-group">
                 <div class="col-md-10">
                     <asp:Button ID="btnCriar" runat="server" Text="Criar Questionário" OnClick="btnCriar_Click"  CssClass="btn btn-success" />
+                    <asp:Button ID="btnEditar" runat="server" Text="Editar Questionário" OnClick="btnEditar_Click"  CssClass="btn btn-info" />
                 </div>
             </div>
         </div>
@@ -55,17 +60,17 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Nome">
                     <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("nome") %>'></asp:Label>
+                        <asp:Label ID="lblNome" runat="server" Text='<%# Eval("nome") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Link">
                     <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" Text='<%# Eval("link") %>'></asp:Label>
+                        <asp:Label ID="lblLink" runat="server" Text='<%# Eval("link") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Tipo">
                     <ItemTemplate>
-                        <asp:Label ID="Label4" runat="server" Text='<%# Eval("tipo").Equals(Convert.ToChar("P")) ? "Pesquisa" : "Avaliação" %>'></asp:Label>
+                        <asp:Label ID="lblTipo" runat="server" Text='<%# Eval("tipo").Equals(Convert.ToChar("P")) ? "Pesquisa" : "Avaliação" %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
@@ -88,43 +93,6 @@
         </asp:GridView>
         </div>
     </div>
-    <div class="row">
-            <div class="form-horizontal col-md-6"">
-             <h4>Editar Questionário.</h4>
-            <hr />
-            <asp:ValidationSummary runat="server" CssClass="text-danger" />
-             <asp:Label ID="Label1" runat="server" Text="" CssClass="text-danger"></asp:Label>
-            <div class="form-group">
-                <asp:Label runat="server" AssociatedControlID="Nome" CssClass="col-md-4">Nome do Questionário</asp:Label>
-                <div class="col-md-8">
-                    <!-- Create a validation group to allow two different 'forms' -->
-                    <asp:TextBox runat="server" ID="TextBox1" CssClass="form-control" ValidationGroup="Two"/>
-                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Nome"
-                        CssClass="text-danger" ErrorMessage="O nome é obrigatório" />
-                </div>
-            </div>
-             <div class="form-group">
-                <asp:Label runat="server" AssociatedControlID="Link" CssClass="col-md-4">Link com instruções</asp:Label>
-                <div class="col-md-8">
-                    <asp:TextBox runat="server" ID="TextBox2" CssClass="form-control" ValidationGroup="Two"/>
-                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="Link"
-                        CssClass="text-danger" ErrorMessage="O link é obrigatório" />
-                </div>
-            </div>
-            <div class="form-group">
-                <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-4">Tipo de Questionário</asp:Label>
-                <div class="col-md-4">
-                    <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" ValidationGroup="Two"></asp:DropDownList>
-                    <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="ddlTipos"
-                        CssClass="text-danger" ErrorMessage="O tipo é obrigatório" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <asp:Button ID="Button1" runat="server" Text="Criar Questionário" OnClick="btnCriar_Click"  CssClass="btn btn-success" />
-                </div>
-            </div>
-        </div>
-     </div>
+    
 
 </asp:Content>

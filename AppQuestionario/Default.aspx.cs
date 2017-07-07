@@ -17,6 +17,9 @@ namespace AppQuestionario
         {
             if (!IsPostBack)
             {
+                lblIdEdit.Visible = false;
+                btnEditar.Visible = false;
+                lblEditingId.Visible = false;
                 carregaValores();
             }
         }
@@ -88,13 +91,55 @@ namespace AppQuestionario
                     int index = Convert.ToInt32(e.CommandArgument);
                     int id = Convert.ToInt32((tabelaQuestionarios.Rows[index].FindControl("lblId") as Label).Text);
 
+                    lblIdEdit.Text = id.ToString();
+                    Nome.Text = (tabelaQuestionarios.Rows[index].FindControl("lblNome") as Label).Text;
+                    Link.Text = (tabelaQuestionarios.Rows[index].FindControl("lblLink") as Label).Text;
+                    preEdicao();
                 }
                 catch(Exception)
                 {
-
+                    Response.Write("<script>alert('Erro ao editar o registro');</script>");
                 }
-                    //
             }
         }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (Link.Text.StartsWith("Http://"))
+            {
+                Questionario novoQuestionario = new Questionario(int.Parse(lblIdEdit.Text), Nome.Text, char.Parse(ddlTipos.SelectedValue), Link.Text);
+                if (questDAO.editarQuestionario(novoQuestionario))
+                {
+                    Response.Write("<script>alert('Questionário Atualizado com Sucesso!')<script>");
+                    posEdicao();
+                    carregaValores();
+                }
+            }
+            else
+            {
+                lblError.Text = "Link deve começar com 'Http://'";
+            }
+        }
+
+        private void posEdicao()
+        {
+            lblEditingId.Visible = false;
+            lblIdEdit.Visible = false;
+            lblAcao.Text = "Criar Questionário";
+            btnCriar.Visible = true;
+            btnEditar.Visible = false;
+            Nome.Text = "";
+            Link.Text = "";
+        }
+
+        private void preEdicao()
+        {
+            lblEditingId.Visible = true;
+            lblIdEdit.Visible = true;
+            lblAcao.Text = "Editar Questionário";
+            btnCriar.Visible = false;
+            btnEditar.Visible = true;
+        }
+                    
     }
 }
