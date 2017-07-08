@@ -65,28 +65,9 @@ namespace AppQuestionario.DAO
             return listaQuestionarios;
         }
 
-        public bool deletarQuestionario(int id)
+        public bool deletarQuestionario(int idQuestionario)
         {
-            bool sucesso = false;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("DELETE FROM QST_QUESTIONARIO_ifalcao WHERE qst_id_questionario = @id", conexao);
-                    comando.Parameters.Add(new SqlParameter("@id", id));
-
-                    conexao.Open();
-                    if (comando.ExecuteNonQuery() > 0)
-                    {
-                        sucesso = true;
-                    }
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return sucesso;
+            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM QST_QUESTIONARIO_ifalcao WHERE qst_id_questionario = @id", idQuestionario);
         }
 
         public bool possuiAlgumaPergunta(int idQuestionario)
@@ -115,22 +96,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            int resultado = 0;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("SELECT MAX(qst_id_questionario) FROM QST_QUESTIONARIO_ifalcao", conexao);
-
-                    conexao.Open();
-                    resultado = Convert.ToInt32(comando.ExecuteScalar());
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return resultado;
+            return GenericDAO.getLastId("SELECT MAX(qst_id_questionario) FROM QST_QUESTIONARIO_ifalcao");
         }
 
         // Passa a instância do questionário com os novos atributos mas com o mesmo id

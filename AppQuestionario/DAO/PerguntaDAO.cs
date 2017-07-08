@@ -96,22 +96,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            int resultado = 0;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("SELECT COUNT(per_id_questionario) FROM PER_PERGUNTA_ifalcao", conexao);
-
-                    conexao.Open();
-                    resultado = Convert.ToInt32(comando.ExecuteScalar());
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return resultado;
+            return GenericDAO.getLastId("SELECT COUNT(per_id_questionario) FROM PER_PERGUNTA_ifalcao");
         }
 
         public bool possuiOrdemDiferente(Pergunta novaPergunta)
@@ -165,26 +150,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarPergunta(int idPergunta)
         {
-            bool sucesso = false;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("DELETE FROM PER_PERGUNTA_ifalcao WHERE per_id_pergunta = @id", conexao);
-                    comando.Parameters.Add(new SqlParameter("@id", idPergunta));
-
-                    conexao.Open();
-                    if (comando.ExecuteNonQuery() > 0)
-                    {
-                        sucesso = true;
-                    }
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return sucesso;
+            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM PER_PERGUNTA_ifalcao WHERE per_id_pergunta = @id", idPergunta);
         }
     }
 }

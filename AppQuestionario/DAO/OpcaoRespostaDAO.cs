@@ -41,22 +41,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            int resultado = 0;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("SELECT MAX(opr_id_opcao_resposta) FROM OPR_OPCAO_RESPOSTA_ifalcao", conexao);
-
-                    conexao.Open();
-                    resultado = Convert.ToInt32(comando.ExecuteScalar());
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return resultado;
+            return GenericDAO.getLastId("SELECT MAX(opr_id_opcao_resposta) FROM OPR_OPCAO_RESPOSTA_ifalcao");
         }
 
         public bool criarOpcaoResposta(OpcaoResposta novaOpcaoResposta)
@@ -114,26 +99,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarResposta(int idResposta)
         {
-            bool sucesso = false;
-
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
-                try
-                {
-                    SqlCommand comando = new SqlCommand("DELETE FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_opcao_resposta = @id", conexao);
-                    comando.Parameters.Add(new SqlParameter("@id", idResposta));
-
-                    conexao.Open();
-                    if (comando.ExecuteNonQuery() > 0)
-                    {
-                        sucesso = true;
-                    }
-                }
-                catch (Exception)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
-                }
-
-            return sucesso;
+            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_opcao_resposta = @id", idResposta);
         }
 
         // Verifica se a pergunta possui alguma opção resposta selecionada como correta
