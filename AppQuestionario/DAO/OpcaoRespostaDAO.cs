@@ -41,7 +41,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("SELECT MAX(opr_id_opcao_resposta) FROM OPR_OPCAO_RESPOSTA_ifalcao");
+            return GenericDAO.getLastId("OPR_OPCAO_RESPOSTA_ifalcao");
         }
 
         public bool criarOpcaoResposta(OpcaoResposta novaOpcaoResposta)
@@ -99,7 +99,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarResposta(int idResposta)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_opcao_resposta = @id", idResposta);
+            return GenericDAO.ExclusaoGenericaDeRegistros("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta", idResposta);
         }
 
         // Verifica se a pergunta possui alguma opção resposta selecionada como correta

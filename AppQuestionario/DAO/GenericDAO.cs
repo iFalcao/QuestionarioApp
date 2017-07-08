@@ -10,13 +10,14 @@ namespace AppQuestionario.DAO
 {
     public class GenericDAO
     {
-        public static bool ExclusaoGenericaDeRegistros(string sql, int id)
+        public static bool ExclusaoGenericaDeRegistros(string nomeTabela, string nomeColuna, int id)
         {
             bool sucesso = false;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
+                    string sql = String.Format("DELETE FROM {0} WHERE {1} = @id", nomeTabela, nomeColuna);
                     SqlCommand comando = new SqlCommand(sql, conexao);
                     comando.Parameters.Add(new SqlParameter("@id", id));
 
@@ -34,13 +35,15 @@ namespace AppQuestionario.DAO
             return sucesso;
         }
 
-        public static int getLastId(string sql)
+        // Retorna a quantidade de ids registrados recebendo o nome da tabela que deseja consultar
+        public static int getLastId(string nomeTabela)
         {
             int resultado = 0;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
+                    string sql = String.Format("SELECT COUNT(*) FROM {0}", nomeTabela);
                     SqlCommand comando = new SqlCommand(sql, conexao);
 
                     conexao.Open();

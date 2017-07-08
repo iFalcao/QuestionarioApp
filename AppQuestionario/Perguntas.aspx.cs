@@ -16,7 +16,6 @@ namespace AppQuestionario
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
             {
                 ddlQuestionarios.DataSource = questDAO.getAllQuestionarios();
@@ -102,7 +101,7 @@ namespace AppQuestionario
                         }
                         else
                         {
-                            Response.Write("<script>alert('Não foi possível deletar o questionário!');</script>");
+                            Response.Write("<script>alert('Não foi possível deletar a pergunta!');</script>");
                         }
                     }
                 }

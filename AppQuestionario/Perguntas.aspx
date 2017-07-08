@@ -39,8 +39,8 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btnVisualizar" runat="server" Text="VisualizarRespostas" CssClass="btn btn-info" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="VisualizarRespostas"/>
-                            <asp:Button ID="btnExcluir" runat="server" Text="Deletar Pergunta" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
+                            <asp:Button ID="btnVisualizar" runat="server" Text="Ver Respostas" CssClass="btn btn-info" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="VisualizarRespostas"/>
+                            <asp:Button ID="btnExcluir" runat="server" Text="Excluir" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

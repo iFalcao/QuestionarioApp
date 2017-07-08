@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace AppQuestionario.DAO
@@ -67,7 +68,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarQuestionario(int idQuestionario)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM QST_QUESTIONARIO_ifalcao WHERE qst_id_questionario = @id", idQuestionario);
+            return GenericDAO.ExclusaoGenericaDeRegistros("QST_QUESTIONARIO_ifalcao", "qst_id_questionario", idQuestionario);
         }
 
         public bool possuiAlgumaPergunta(int idQuestionario)
@@ -96,7 +97,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("SELECT MAX(qst_id_questionario) FROM QST_QUESTIONARIO_ifalcao");
+            return GenericDAO.getLastId("QST_QUESTIONARIO_ifalcao");
         }
 
         // Passa a instância do questionário com os novos atributos mas com o mesmo id

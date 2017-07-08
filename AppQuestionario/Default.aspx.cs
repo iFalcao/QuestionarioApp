@@ -17,9 +17,7 @@ namespace AppQuestionario
         {
             if (!IsPostBack)
             {
-                lblIdEdit.Visible = false;
-                btnEditar.Visible = false;
-                lblEditingId.Visible = false;
+                posEdicao();
                 carregaValores();
             }
         }
@@ -120,7 +118,14 @@ namespace AppQuestionario
                 lblError.Text = "Link deve começar com 'Http://'";
             }
         }
-
+        private void preEdicao()
+        {
+            lblEditingId.Visible = true;
+            lblIdEdit.Visible = true;
+            lblAcao.Text = "Editar Questionário";
+            btnCriar.Visible = false;
+            btnEditar.Visible = true;
+        }
         private void posEdicao()
         {
             lblEditingId.Visible = false;
@@ -130,15 +135,6 @@ namespace AppQuestionario
             btnEditar.Visible = false;
             Nome.Text = "";
             Link.Text = "";
-        }
-
-        private void preEdicao()
-        {
-            lblEditingId.Visible = true;
-            lblIdEdit.Visible = true;
-            lblAcao.Text = "Editar Questionário";
-            btnCriar.Visible = false;
-            btnEditar.Visible = true;
         }
                     
     }

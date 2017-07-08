@@ -88,7 +88,7 @@ namespace AppQuestionario.DAO
                 }
                 catch (Exception)
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método de criação da pergunta')<script>");
                 }
 
             return sucesso;
@@ -96,7 +96,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("SELECT COUNT(per_id_questionario) FROM PER_PERGUNTA_ifalcao");
+            return GenericDAO.getLastId("PER_PERGUNTA_ifalcao");
         }
 
         public bool possuiOrdemDiferente(Pergunta novaPergunta)
@@ -150,7 +150,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarPergunta(int idPergunta)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("DELETE FROM PER_PERGUNTA_ifalcao WHERE per_id_pergunta = @id", idPergunta);
+            return GenericDAO.ExclusaoGenericaDeRegistros("PER_PERGUNTA_ifalcao", "per_id_pergunta", idPergunta);
         }
     }
 }
