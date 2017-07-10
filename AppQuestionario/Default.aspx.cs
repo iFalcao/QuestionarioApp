@@ -87,6 +87,14 @@ namespace AppQuestionario
                 try
                 {
                     lblIdEdit.Text = id.ToString();
+                    if (questDAO.possuiPerguntaMultiplaEscolha(id))
+                    {
+                        ddlTipos.Enabled = false;
+                    }
+                    else
+                    {
+                        ddlTipos.Enabled = true;
+                    }
                     Nome.Text = (tabelaQuestionarios.Rows[index].FindControl("lblNome") as Label).Text;
                     Link.Text = (tabelaQuestionarios.Rows[index].FindControl("lblLink") as Label).Text;
                     preEdicao(id);
@@ -112,6 +120,7 @@ namespace AppQuestionario
                 if (questDAO.editarQuestionario(novoQuestionario))
                 {
                     Response.Write("<script>alert('Questionário Atualizado com Sucesso!')<script>");
+                    ddlTipos.Enabled = true;
                     posEdicao();
                     carregaValores();
                 }

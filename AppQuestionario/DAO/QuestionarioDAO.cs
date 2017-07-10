@@ -76,6 +76,30 @@ namespace AppQuestionario.DAO
             return GenericDAO.getNomeFromId("QST_QUESTIONARIO_ifalcao", "qst_nm_questionario", "qst_id_questionario", idQuestionario);
         }
 
+        public bool possuiPerguntaMultiplaEscolha(int idQuestionario)
+        {
+            bool possui = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM PER_PERGUNTA_ifalcao perg INNER JOIN QST_QUESTIONARIO_ifalcao quest ON quest.qst_id_questionario = perg.per_id_questionario WHERE perg.per_tp_pergunta = 'M' 	AND quest.qst_id_questionario = @id", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", idQuestionario));
+
+                    conexao.Open();
+                    if (Convert.ToInt32(comando.ExecuteScalar()) > 0)
+                    {
+                        possui = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return possui;
+        }
+
         public bool possuiAlgumaPergunta(int idQuestionario)
         {
             bool possui = false;

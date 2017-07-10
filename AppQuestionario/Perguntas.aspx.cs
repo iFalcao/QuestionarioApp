@@ -33,7 +33,6 @@ namespace AppQuestionario
 
                 if (Session["questionarioSelecionado"] != null)
                 {
-
                     carregarPerguntas((int)Session["questionarioSelecionado"]);
                 }
             }
@@ -41,6 +40,7 @@ namespace AppQuestionario
 
         private void carregarPerguntas(int idQuestionario)
         {
+            lblIdQuestionario.Text = idQuestionario.ToString();
             tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
             lblListandoPerguntas.Text = "Listando perguntas de '" + questDAO.getNome(idQuestionario) + "'";
             if (questDAO.ehAvaliacao(idQuestionario))
@@ -90,7 +90,6 @@ namespace AppQuestionario
 
         protected void btnListarPerguntas_Click(object sender, EventArgs e)
         {
-            lblIdQuestionario.Text = ddlQuestionarios.SelectedValue;
             carregarPerguntas(Convert.ToInt32(ddlQuestionarios.SelectedValue));
         }
 
