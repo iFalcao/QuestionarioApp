@@ -97,6 +97,34 @@ namespace AppQuestionario.DAO
             return possui;
         }
 
+        public bool editarOpcaoResposta(OpcaoResposta opcaoResposta)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("UPDATE OPR_OPCAO_RESPOSTA_ifalcao SET opr_id_pergunta = @idPergunta, opr_ds_opcao_resposta = @descricao, opr_ch_resposta_correta = @correta, opr_nu_ordem = @ordem WHERE opr_id_opcao_resposta = @id)", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", opcaoResposta.Id));
+                    comando.Parameters.Add(new SqlParameter("@idPergunta", opcaoResposta.IdPerguntaRelacionada));
+                    comando.Parameters.Add(new SqlParameter("@descricao", opcaoResposta.Descricao));
+                    comando.Parameters.Add(new SqlParameter("@correta", opcaoResposta.Correta));
+                    comando.Parameters.Add(new SqlParameter("@ordem", opcaoResposta.Ordem));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
+        }
+
         public bool deletarResposta(int idResposta)
         {
             return GenericDAO.ExclusaoGenericaDeRegistros("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta", idResposta);

@@ -99,6 +99,35 @@ namespace AppQuestionario.DAO
             return GenericDAO.getLastId("PER_PERGUNTA_ifalcao");
         }
 
+        public bool editarOpcaoResposta(Pergunta pergunta)
+        {
+            bool sucesso = false;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    SqlCommand comando = new SqlCommand("UPDATE PER_PERGUNTA_ifalcao SET per_id_questionario = @idQuestionario, per_ds_pergunta = @descricao, per_tp_pergunta = @tipo , per_ch_resposta_obrigatoria = @obrigatoria, per_nu_ordem = @ordem WHERE per_id_pergunta = @id)", conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", pergunta.Id));
+                    comando.Parameters.Add(new SqlParameter("@idQuestionario", pergunta.IdQuestionario));
+                    comando.Parameters.Add(new SqlParameter("@descricao", pergunta.Descricao));
+                    comando.Parameters.Add(new SqlParameter("@tipo", pergunta.Tipo));
+                    comando.Parameters.Add(new SqlParameter("@obrigatoria", pergunta.Obrigatoria));
+                    comando.Parameters.Add(new SqlParameter("@ordem", pergunta.Ordem));
+
+                    conexao.Open();
+                    if (comando.ExecuteNonQuery() > 0)
+                    {
+                        sucesso = true;
+                    }
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return sucesso;
+        }
+
         public bool possuiOrdemDiferente(Pergunta novaPergunta)
         {
             bool possui = true;

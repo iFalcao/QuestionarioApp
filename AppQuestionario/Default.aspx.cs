@@ -82,7 +82,7 @@ namespace AppQuestionario
                 }
             }
 
-            if (e.CommandName == "Editar")
+            else if (e.CommandName == "Editar")
             {
                 try
                 {

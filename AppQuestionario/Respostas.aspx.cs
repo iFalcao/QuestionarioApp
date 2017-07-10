@@ -59,8 +59,7 @@ namespace AppQuestionario
             }
             else
             {
-                char correta = chkCorreta.Checked ? 'S' : 'N';
-                OpcaoResposta novaResposta = new OpcaoResposta(Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, correta, int.Parse(txtOrdem.Text));
+                OpcaoResposta novaResposta = new OpcaoResposta(Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
                 if (opcaoDAO.possuiOrdemDiferente(novaResposta))
                 {
                     if (opcaoDAO.criarOpcaoResposta(novaResposta))
