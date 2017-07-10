@@ -19,7 +19,7 @@ namespace AppQuestionario.Models
 
         // Construtores
 
-        // Criando um novo questionário não é passado um id no construtor
+        // Criando uma nova pergunta não é passado um id no construtor
         public Pergunta(int idQuestionario, string descricao, char tipo, char obrigatoria, int ordem)
         {
             this.Count++;

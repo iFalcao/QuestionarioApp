@@ -22,10 +22,11 @@ namespace AppQuestionario
                 ddlPerguntas.DataTextField = "Descricao";
                 ddlPerguntas.DataValueField = "Id";
                 ddlPerguntas.DataBind();
+                posEdicao();
 
                 if (Session["perguntaSelecionada"] != null)
                 {
-                    lblIdPergunta.Text = Session["perguntaSelecionada"].ToString();
+                    
                     carregarRespostas((int)Session["perguntaSelecionada"]);
                 }
             }
@@ -34,6 +35,7 @@ namespace AppQuestionario
 
         private void carregarRespostas(int idPergunta)
         {
+            lblIdPergunta.Text = idPergunta.ToString();
             tabelaRespostas.DataSource = opcaoDAO.listarOpcoesDaResposta(idPergunta);
             tabelaRespostas.DataBind();
             if (opcaoDAO.possuiOpcaoCorretaParaPergunta(idPergunta))
@@ -105,6 +107,47 @@ namespace AppQuestionario
                     Response.Write("<script>alert('Erro ao executar método');</script>");
                 }
             }
+            else if (e.CommandName == "Editar")
+            {
+                lblIdResposta.Text = id.ToString();
+                txtDescricao.Text = (tabelaRespostas.Rows[index].FindControl("lblDescricao") as Label).Text;
+                txtOrdem.Text = (tabelaRespostas.Rows[index].FindControl("lblOrdem") as Label).Text;
+                preEdicao();
+            }
+        }
+
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            OpcaoResposta respostaEditada = new OpcaoResposta(Convert.ToInt32(lblIdResposta.Text), Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
+            if (opcaoDAO.editarOpcaoResposta(respostaEditada))
+            {
+                posEdicao();
+                carregarRespostas(Convert.ToInt32(lblIdResposta.Text));
+            }
+            else
+            {
+                Response.Write("<script>alert('Erro ao editar resposta');</script>");
+            }
+        }
+
+        private void preEdicao()
+        {
+            lblIdResposta.Visible = true;
+            lblEditingId.Visible = true;
+            lblAcao.Text = "Editar Resposta";
+            btnCriar.Visible = false;
+            btnEditar.Visible = true;
+        }
+        private void posEdicao()
+        {
+            lblEditingId.Visible = false;
+            lblIdResposta.Visible = false;
+            lblAcao.Text = "Criar Resposta.";
+            btnCriar.Visible = true;
+            btnEditar.Visible = false;
+            txtDescricao.Text = "";
+            txtOrdem.Text = "";
         }
     }
 }

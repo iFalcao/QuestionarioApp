@@ -41,7 +41,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("OPR_OPCAO_RESPOSTA_ifalcao");
+            return GenericDAO.getLastId("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta");
         }
 
         public bool criarOpcaoResposta(OpcaoResposta novaOpcaoResposta)
@@ -104,7 +104,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("UPDATE OPR_OPCAO_RESPOSTA_ifalcao SET opr_id_pergunta = @idPergunta, opr_ds_opcao_resposta = @descricao, opr_ch_resposta_correta = @correta, opr_nu_ordem = @ordem WHERE opr_id_opcao_resposta = @id)", conexao);
+                    SqlCommand comando = new SqlCommand("UPDATE OPR_OPCAO_RESPOSTA_ifalcao SET opr_id_pergunta = @idPergunta, opr_ds_opcao_resposta = @descricao, opr_ch_resposta_correta = @correta, opr_nu_ordem = @ordem WHERE opr_id_opcao_resposta = @id", conexao);
                     comando.Parameters.Add(new SqlParameter("@id", opcaoResposta.Id));
                     comando.Parameters.Add(new SqlParameter("@idPergunta", opcaoResposta.IdPerguntaRelacionada));
                     comando.Parameters.Add(new SqlParameter("@descricao", opcaoResposta.Descricao));

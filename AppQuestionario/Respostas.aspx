@@ -9,6 +9,8 @@
     <hr />
     <div class="row">
         <div class="col-md-6">
+        <asp:Label ID="lblListandoResposta" runat="server" Text="Lista de Respostas" CssClass="h4"></asp:Label>
+        <hr />
         <asp:GridView ID="tabelaRespostas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaRespostas_RowCommand" >
             <AlternatingRowStyle BackColor="White" />
             <Columns>
@@ -19,7 +21,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Descricao">
                     <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server" Text='<%# Eval("descricao") %>'></asp:Label>
+                        <asp:Label ID="lblDescricao" runat="server" Text='<%# Eval("descricao") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Correta">
@@ -29,11 +31,12 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ordem">
                     <ItemTemplate>
-                        <asp:Label ID="Label5" runat="server" Text='<%# Eval("ordem") %>'></asp:Label>
+                        <asp:Label ID="lblOrdem" runat="server" Text='<%# Eval("ordem") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
+                        <asp:Button ID="btnTabelaEdit" runat="server" Text="Editar Resposta" CssClass="btn btn-warning" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Editar"/>
                         <asp:Button ID="btnExcluir" runat="server" Text="Deletar Resposta" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
                     </ItemTemplate>
                 </asp:TemplateField>
@@ -52,9 +55,15 @@
         </div>
         <div class="col-md-6">
         <div class="form-horizontal col-md-12">
-            <h4>Criar Resposta.</h4>
+            <asp:Label ID="lblAcao" runat="server" Text="" CssClass="h4"></asp:Label>
             <hr />
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
+                <div class="form-group">
+                    <asp:Label runat="server" ID="lblEditingId" CssClass="col-md-6">Id da Resposta</asp:Label>
+                    <div class="col-md-6">
+                        <asp:Label ID="lblIdResposta" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <asp:Label runat="server" CssClass="col-md-6">Id da Pergunta</asp:Label>
                     <div class="col-md-6">
@@ -86,6 +95,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
+                        <asp:Button ID="btnEditar" runat="server" Text="Editar Resposta" CssClass="btn btn-info" OnClick="btnEditar_Click" />
                         <asp:Button ID="btnCriar" runat="server" Text="Criar Resposta" CssClass="btn btn-success" OnClick="btnCriar_Click" />
                     </div>
                 </div>

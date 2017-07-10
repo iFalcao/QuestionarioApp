@@ -36,14 +36,14 @@ namespace AppQuestionario.DAO
         }
 
         // Retorna a quantidade de ids registrados recebendo o nome da tabela que deseja consultar
-        public static int getLastId(string nomeTabela)
+        public static int getLastId(string nomeTabela, string nomeColunaId)
         {
             int resultado = 0;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    string sql = String.Format("SELECT COUNT(*) FROM {0}", nomeTabela);
+                    string sql = String.Format("SELECT MAX({0}) FROM {1}", nomeColunaId, nomeTabela);
                     SqlCommand comando = new SqlCommand(sql, conexao);
 
                     conexao.Open();

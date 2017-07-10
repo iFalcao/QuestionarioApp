@@ -18,21 +18,21 @@ namespace AppQuestionario.Models
 
         // Construtores
 
-        // Recuperando a lista de Respostas do Banco de Dados não altera no count de objetos criados
-        public OpcaoResposta(int id, int idPergunta, string descricao, char correta, int ordem)
+        // Criando uma nova resposta não é passado um id no construtor
+        public OpcaoResposta(int idPergunta, string descricao, char correta, int ordem)
         {
-            this.Id = id;
+            this.Count++;
+            this.Id = this.Count;
             this.IdPerguntaRelacionada = idPergunta;
             this.Descricao = descricao;
             this.Correta = correta;
             this.Ordem = ordem;
         }
 
-        // Criando um novo questionário não é passado um id no construtor
-        public OpcaoResposta(int idPergunta, string descricao, char correta, int ordem)
+        // Recuperando a lista de Respostas do Banco de Dados não altera no count de objetos criados
+        public OpcaoResposta(int id, int idPergunta, string descricao, char correta, int ordem)
         {
-            this.Count++;
-            this.Id = this.Count;
+            this.Id = id;
             this.IdPerguntaRelacionada = idPergunta;
             this.Descricao = descricao;
             this.Correta = correta;

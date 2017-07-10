@@ -46,7 +46,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao ORDER BY per_id_pergunta", conexao);
 
                     conexao.Open();
                     using (SqlDataReader reader = comando.ExecuteReader())
@@ -96,7 +96,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("PER_PERGUNTA_ifalcao");
+            return GenericDAO.getLastId("PER_PERGUNTA_ifalcao", "per_id_pergunta");
         }
 
         public bool editarPergunta(Pergunta pergunta)

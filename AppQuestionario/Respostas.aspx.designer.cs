@@ -40,6 +40,15 @@ namespace AppQuestionario {
         protected global::System.Web.UI.WebControls.Button btnListarRespostas;
         
         /// <summary>
+        /// lblListandoResposta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblListandoResposta;
+        
+        /// <summary>
         /// tabelaRespostas control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,33 @@ namespace AppQuestionario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView tabelaRespostas;
+        
+        /// <summary>
+        /// lblAcao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAcao;
+        
+        /// <summary>
+        /// lblEditingId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEditingId;
+        
+        /// <summary>
+        /// lblIdResposta control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdResposta;
         
         /// <summary>
         /// lblIdPergunta control.
@@ -83,6 +119,15 @@ namespace AppQuestionario {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOrdem;
+        
+        /// <summary>
+        /// btnEditar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditar;
         
         /// <summary>
         /// btnCriar control.

@@ -47,7 +47,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT * FROM QST_QUESTIONARIO_ifalcao", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT * FROM QST_QUESTIONARIO_ifalcao ORDER BY qst_id_questionario", conexao);
 
                     conexao.Open();
                     using (SqlDataReader reader = comando.ExecuteReader())
@@ -97,7 +97,7 @@ namespace AppQuestionario.DAO
 
         public static int getLastId()
         {
-            return GenericDAO.getLastId("QST_QUESTIONARIO_ifalcao");
+            return GenericDAO.getLastId("QST_QUESTIONARIO_ifalcao", "qst_id_questionario");
         }
 
         // Passa a instância do questionário com os novos atributos mas com o mesmo id

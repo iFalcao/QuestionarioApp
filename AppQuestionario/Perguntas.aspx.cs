@@ -136,7 +136,7 @@ namespace AppQuestionario
             }
             else
             {
-                Response.Write("<script>alert('Erro ao editar resposta');</script>");
+                Response.Write("<script>alert('Erro ao editar pergunta');</script>");
             }
         }
 
