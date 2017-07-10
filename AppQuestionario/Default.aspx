@@ -78,6 +78,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField>
                     <ItemTemplate>
+                        <asp:Button ID="btnVerPerguntas" runat="server" Text="Perguntas" CssClass="btn btn-info" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="VisualizarPerguntas"/>
                         <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-warning" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Editar"/>
                         <asp:Button ID="btnExcluir" runat="server" Text="Deletar" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
                     </ItemTemplate>

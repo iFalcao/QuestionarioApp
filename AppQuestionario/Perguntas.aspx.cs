@@ -30,6 +30,12 @@ namespace AppQuestionario
                 ddlTipos.Items.Add(new ListItem("Única Escolha", "U"));
                 ddlTipos.Items.Add(new ListItem("Múltipla Escolha", "M"));
                 posEdicao();
+
+                if (Session["questionarioSelecionado"] != null)
+                {
+
+                    carregarPerguntas((int)Session["questionarioSelecionado"]);
+                }
             }
         }
 

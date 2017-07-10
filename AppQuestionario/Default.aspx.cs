@@ -51,12 +51,13 @@ namespace AppQuestionario
 
         protected void tabelaQuestionarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            int index = Convert.ToInt32(e.CommandArgument);
+            int id = Convert.ToInt32((tabelaQuestionarios.Rows[index].FindControl("lblId") as Label).Text);
+
             if (e.CommandName == "Excluir")
             {
                 try
                 {
-                    int index = Convert.ToInt32(e.CommandArgument);
-                    int id = Convert.ToInt32((tabelaQuestionarios.Rows[index].FindControl("lblId") as Label).Text);
                     if (questDAO.possuiAlgumaPergunta(id))
                     {
                         Response.Write("<script>alert('Questionário possui uma pergunta e portanto não pode ser deletado!');</script>");
@@ -85,9 +86,6 @@ namespace AppQuestionario
             {
                 try
                 {
-                    int index = Convert.ToInt32(e.CommandArgument);
-                    int id = Convert.ToInt32((tabelaQuestionarios.Rows[index].FindControl("lblId") as Label).Text);
-
                     lblIdEdit.Text = id.ToString();
                     Nome.Text = (tabelaQuestionarios.Rows[index].FindControl("lblNome") as Label).Text;
                     Link.Text = (tabelaQuestionarios.Rows[index].FindControl("lblLink") as Label).Text;
@@ -98,6 +96,12 @@ namespace AppQuestionario
                     Response.Write("<script>alert('Erro ao editar o registro');</script>");
                 }
             }
+            else if (e.CommandName == "VisualizarPerguntas")
+            {
+                Session["questionarioSelecionado"] = id;
+                Response.Redirect("Perguntas.aspx");
+            }
+
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)

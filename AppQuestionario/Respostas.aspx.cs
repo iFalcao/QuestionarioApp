@@ -13,14 +13,16 @@ namespace AppQuestionario
     {
         PerguntaDAO perguntaDAO = new PerguntaDAO();
         OpcaoRespostaDAO opcaoDAO = new OpcaoRespostaDAO();
+        QuestionarioDAO questDAO = new QuestionarioDAO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                ddlPerguntas.DataSource = perguntaDAO.getAllPerguntas();
-                ddlPerguntas.DataTextField = "Descricao";
-                ddlPerguntas.DataValueField = "Id";
+                ddlQuestionarios.DataSource = questDAO.getAllQuestionarios();
+                ddlQuestionarios.DataTextField = "Nome";
+                ddlQuestionarios.DataValueField = "Id";
+                ddlQuestionarios.DataBind();
 
                 ddlOrdem.Items.Clear();
                 ddlOrdem.Items.AddRange(Enumerable.Range(1, 15).Select(x => new ListItem(x.ToString())).ToArray());
@@ -30,7 +32,6 @@ namespace AppQuestionario
 
                 if (Session["perguntaSelecionada"] != null)
                 {
-                    
                     carregarRespostas((int)Session["perguntaSelecionada"]);
                 }
             }
@@ -56,8 +57,16 @@ namespace AppQuestionario
 
         protected void btnListarRespostas_Click(object sender, EventArgs e)
         {
-            lblIdPergunta.Text = ddlPerguntas.SelectedValue;
-            carregarRespostas(Convert.ToInt32(ddlPerguntas.SelectedValue));
+            // O drop down de  Perguntas é comparado com o seu texto pois não possui uma opção default de valor ""
+            if (ddlQuestionarios.SelectedValue == "" || ddlPerguntas.Text == "")
+            {
+                lblErroListarRespostas.Text = "Primeiro selecione um questionário e uma pergunta";
+            }
+            else
+            {
+                lblIdPergunta.Text = ddlPerguntas.SelectedValue;
+                carregarRespostas(Convert.ToInt32(ddlPerguntas.SelectedValue));
+            }
         }
 
         protected void btnCriar_Click(object sender, EventArgs e)
@@ -132,7 +141,7 @@ namespace AppQuestionario
             {
                 Response.Write("<script>alert('Resposta editada com sucesso!');</script>");
                 posEdicao();
-                carregarRespostas(Convert.ToInt32(lblIdResposta.Text));
+                carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
             }
             else
             {
@@ -156,6 +165,17 @@ namespace AppQuestionario
             btnCriar.Visible = true;
             btnEditar.Visible = false;
             txtDescricao.Text = "";
+        }
+
+        protected void ddlQuestionarios_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Se selecionar um valor, a opção padrão 'Selecione' fica indisponível
+            ddlQuestionarios.Items[0].Enabled = false;
+
+            ddlPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(int.Parse(ddlQuestionarios.SelectedValue));
+            ddlPerguntas.DataTextField = "Descricao";
+            ddlPerguntas.DataValueField = "Id";
+            ddlPerguntas.DataBind();
         }
     }
 }

@@ -2,10 +2,18 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <br />
-    <asp:Label ID="lblX" runat="server" Text="Selecione a pergunta"></asp:Label>
+    <asp:Label ID="Label1" runat="server" Text="Selecione o Questionário"></asp:Label>
+    <asp:DropDownList ID="ddlQuestionarios" AppendDataBoundItems="True" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlQuestionarios_SelectedIndexChanged">
+        <asp:ListItem Value="">Selecione</asp:ListItem>
+    </asp:DropDownList>
+    <br />
+    <br />
+    <asp:Label ID="lblX" runat="server" Text="Selecione a Pergunta"></asp:Label>
     <asp:DropDownList ID="ddlPerguntas" runat="server"></asp:DropDownList><br />
     <br />
-    <asp:Button ID="btnListarRespostas" runat="server" Text="Listar Respostas" CssClass="btn btn-default" OnClick="btnListarRespostas_Click"/>
+    <asp:Label ID="lblErroListarRespostas" runat="server" Text="" CssClass="text-danger"></asp:Label>
+    <br />
+    <asp:Button ID="btnListarRespostas" runat="server" Text="Listar Respostas" CssClass="btn btn-success" OnClick="btnListarRespostas_Click"/>
     <hr />
     <div class="row">
         <div class="col-md-6">
