@@ -11,9 +11,12 @@
             <hr />
             <asp:ValidationSummary runat="server" CssClass="text-danger" />
              <asp:Label ID="lblError" runat="server" Text="" CssClass="text-danger"></asp:Label>
-            <div class="form-group">
-                <asp:Label ID="lblEditingId" runat="server"  CssClass="col-md-4">Id do Questionário</asp:Label>
-                <asp:Label ID="lblIdEdit" runat="server" Text=""></asp:Label>
+            
+             <div class="form-group">
+                <asp:Label ID="lblEditingId" runat="server" AssociatedControlID="lblIdEdit" CssClass="col-md-4">Id do Questionário</asp:Label>
+                <div class="col-md-8">
+                    <asp:Label ID="lblIdEdit" runat="server" Text=""></asp:Label>
+                </div>
             </div>
             <div class="form-group">
                 <asp:Label runat="server" AssociatedControlID="Nome" CssClass="col-md-4">Nome do Questionário</asp:Label>

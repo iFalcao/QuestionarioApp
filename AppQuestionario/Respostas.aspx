@@ -9,7 +9,7 @@
     <hr />
     <div class="row">
         <div class="col-md-6">
-        <asp:Label ID="lblListandoResposta" runat="server" Text="Lista de Respostas" CssClass="h4"></asp:Label>
+        <asp:Label ID="lblListandoRespostas" runat="server" Text="" CssClass="h4"></asp:Label>
         <hr />
         <asp:GridView ID="tabelaRespostas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaRespostas_RowCommand" >
             <AlternatingRowStyle BackColor="White" />

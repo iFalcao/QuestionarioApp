@@ -56,5 +56,27 @@ namespace AppQuestionario.DAO
 
             return resultado;
         }
+
+        public static string getNomeFromId(string tabela, string colunaNome, string colunaId, int valorId)
+        {
+            string nome = null;
+
+            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+                try
+                {
+                    string sql = String.Format("SELECT {0} FROM {1} WHERE {2} = @id", colunaNome, tabela, colunaId);
+                    SqlCommand comando = new SqlCommand(sql, conexao);
+                    comando.Parameters.Add(new SqlParameter("@id", valorId));
+
+                    conexao.Open();
+                    nome = comando.ExecuteScalar().ToString();
+                }
+                catch (Exception)
+                {
+                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                }
+
+            return nome;
+        }
     }
 }

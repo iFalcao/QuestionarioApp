@@ -99,6 +99,12 @@ namespace AppQuestionario.DAO
             return GenericDAO.getLastId("PER_PERGUNTA_ifalcao", "per_id_pergunta");
         }
 
+        public string getNome(int idPergunta)
+        {
+            return GenericDAO.getNomeFromId("PER_PERGUNTA_ifalcao", "per_ds_pergunta", "per_id_pergunta", idPergunta);
+
+        }
+
         public bool editarPergunta(Pergunta pergunta)
         {
             bool sucesso = false;

@@ -23,7 +23,7 @@ namespace AppQuestionario
                 ddlPerguntas.DataValueField = "Id";
 
                 ddlOrdem.Items.Clear();
-                ddlOrdem.Items.AddRange(Enumerable.Range(1, 10).Select(x => new ListItem(x.ToString())).ToArray());
+                ddlOrdem.Items.AddRange(Enumerable.Range(1, 15).Select(x => new ListItem(x.ToString())).ToArray());
 
                 ddlPerguntas.DataBind();
                 posEdicao();
@@ -40,6 +40,7 @@ namespace AppQuestionario
         private void carregarRespostas(int idPergunta)
         {
             lblIdPergunta.Text = idPergunta.ToString();
+            lblListandoRespostas.Text = "Listando respostas de '" + perguntaDAO.getNome(idPergunta) + "'";
             tabelaRespostas.DataSource = opcaoDAO.listarOpcoesDaResposta(idPergunta);
             tabelaRespostas.DataBind();
             if (opcaoDAO.possuiOpcaoCorretaParaPergunta(idPergunta))
