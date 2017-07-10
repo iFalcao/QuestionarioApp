@@ -86,11 +86,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <asp:Label runat="server" AssociatedControlID="txtOrdem" CssClass="col-md-6">Ordem da resposta</asp:Label>
+                    <asp:Label runat="server" CssClass="col-md-6">Ordem da resposta</asp:Label>
                     <div class="col-md-6">
-                        <asp:TextBox ID="txtOrdem" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="txtOrdem"
-                            CssClass="text-danger" ErrorMessage="A ordem é obrigatória" />
+                        <asp:DropDownList ID="ddlOrdem" runat="server"></asp:DropDownList>
                     </div>
                 </div>
                 <div class="form-group">

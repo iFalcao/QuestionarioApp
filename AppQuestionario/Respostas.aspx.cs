@@ -21,6 +21,10 @@ namespace AppQuestionario
                 ddlPerguntas.DataSource = perguntaDAO.getAllPerguntas();
                 ddlPerguntas.DataTextField = "Descricao";
                 ddlPerguntas.DataValueField = "Id";
+
+                ddlOrdem.Items.Clear();
+                ddlOrdem.Items.AddRange(Enumerable.Range(1, 10).Select(x => new ListItem(x.ToString())).ToArray());
+
                 ddlPerguntas.DataBind();
                 posEdicao();
 
@@ -40,6 +44,7 @@ namespace AppQuestionario
             tabelaRespostas.DataBind();
             if (opcaoDAO.possuiOpcaoCorretaParaPergunta(idPergunta))
             {
+                chkCorreta.Checked = false;
                 chkCorreta.Enabled = false;
             }
             else
@@ -62,9 +67,12 @@ namespace AppQuestionario
             }
             else
             {
-                if (opcaoDAO.possuiOrdemDiferente(int.Parse(txtOrdem.Text), Convert.ToInt32(lblIdPergunta.Text)))
+                int idPergunta = int.Parse(lblIdPergunta.Text);
+                int ordem = int.Parse(ddlOrdem.SelectedValue);
+
+                if (opcaoDAO.possuiOrdemDiferente(ordem, idPergunta))
                 {
-                    OpcaoResposta novaResposta = new OpcaoResposta(Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
+                    OpcaoResposta novaResposta = new OpcaoResposta(idPergunta, txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', ordem);
                     if (opcaoDAO.criarOpcaoResposta(novaResposta))
                     {
                         Response.Write("<script>alert('Resposta criada com sucesso!');</script>");
@@ -111,7 +119,6 @@ namespace AppQuestionario
             {
                 lblIdResposta.Text = id.ToString();
                 txtDescricao.Text = (tabelaRespostas.Rows[index].FindControl("lblDescricao") as Label).Text;
-                txtOrdem.Text = (tabelaRespostas.Rows[index].FindControl("lblOrdem") as Label).Text;
                 preEdicao();
             }
         }
@@ -119,7 +126,7 @@ namespace AppQuestionario
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            OpcaoResposta respostaEditada = new OpcaoResposta(Convert.ToInt32(lblIdResposta.Text), Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
+            OpcaoResposta respostaEditada = new OpcaoResposta(Convert.ToInt32(lblIdResposta.Text), Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (opcaoDAO.editarOpcaoResposta(respostaEditada))
             {
                 posEdicao();
@@ -147,7 +154,6 @@ namespace AppQuestionario
             btnCriar.Visible = true;
             btnEditar.Visible = false;
             txtDescricao.Text = "";
-            txtOrdem.Text = "";
         }
     }
 }

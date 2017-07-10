@@ -128,7 +128,7 @@ namespace AppQuestionario.DAO
             return sucesso;
         }
 
-        public bool possuiOrdemDiferente(Pergunta novaPergunta)
+        public bool possuiOrdemDiferente(int idQuestionario, int ordem)
         {
             bool possui = true;
 
@@ -136,8 +136,8 @@ namespace AppQuestionario.DAO
                 try
                 {
                     SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM PER_PERGUNTA_ifalcao WHERE per_id_questionario = @idQuestionario AND per_nu_ordem = @ordem", conexao);
-                    comando.Parameters.Add(new SqlParameter("@idQuestionario", novaPergunta.IdQuestionario));
-                    comando.Parameters.Add(new SqlParameter("@ordem", novaPergunta.Ordem));
+                    comando.Parameters.Add(new SqlParameter("@idQuestionario", idQuestionario));
+                    comando.Parameters.Add(new SqlParameter("@ordem", ordem));
 
                     conexao.Open();
                     if (Convert.ToInt32(comando.ExecuteScalar()) > 0)

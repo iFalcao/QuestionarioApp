@@ -22,6 +22,10 @@ namespace AppQuestionario
                 ddlQuestionarios.DataTextField = "Nome";
                 ddlQuestionarios.DataValueField = "Id";
                 ddlQuestionarios.DataBind();
+
+                ddlOrdem.Items.Clear();
+                ddlOrdem.Items.AddRange(Enumerable.Range(1, 50).Select (x => new ListItem(x.ToString())).ToArray());
+
                 ddlTipos.Items.Clear();
                 ddlTipos.Items.Add(new ListItem("Única Escolha", "U"));
                 ddlTipos.Items.Add(new ListItem("Múltipla Escolha", "M"));
@@ -54,9 +58,12 @@ namespace AppQuestionario
             else
             {
                 char obrigatoria = chkObrigatoria.Checked ? 'S' : 'N';
-                Pergunta novaPergunta = new Pergunta(Convert.ToInt32(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, int.Parse(txtOrdem.Text));
-                if (perguntaDAO.possuiOrdemDiferente(novaPergunta))
+                int idQuestionario = int.Parse(lblIdQuestionario.Text);
+                int ordem = int.Parse(ddlOrdem.SelectedValue);
+
+                if (perguntaDAO.possuiOrdemDiferente(idQuestionario, ordem))
                 {
+                    Pergunta novaPergunta = new Pergunta(idQuestionario, txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, ordem);
                     if (perguntaDAO.criarPergunta(novaPergunta))
                     {
                         Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
@@ -121,14 +128,13 @@ namespace AppQuestionario
             {
                 lblIdPergunta.Text = id.ToString();
                 txtDescricao.Text = (tabelaPerguntas.Rows[index].FindControl("lblDescricao") as Label).Text;
-                txtOrdem.Text = (tabelaPerguntas.Rows[index].FindControl("lblOrdem") as Label).Text;
                 preEdicao();
             }
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            Pergunta perguntaEditada = new Pergunta(int.Parse(lblIdPergunta.Text), int.Parse(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), chkObrigatoria.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
+            Pergunta perguntaEditada = new Pergunta(int.Parse(lblIdPergunta.Text), int.Parse(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), chkObrigatoria.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (perguntaDAO.editarPergunta(perguntaEditada))
             {
                 posEdicao();
@@ -156,7 +162,6 @@ namespace AppQuestionario
             btnCriar.Visible = true;
             btnEditar.Visible = false;
             txtDescricao.Text = "";
-            txtOrdem.Text = "";
         }
     }
 }

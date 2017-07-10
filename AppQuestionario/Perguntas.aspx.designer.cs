@@ -121,13 +121,13 @@ namespace AppQuestionario {
         protected global::System.Web.UI.WebControls.CheckBox chkObrigatoria;
         
         /// <summary>
-        /// txtOrdem control.
+        /// ddlOrdem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOrdem;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrdem;
         
         /// <summary>
         /// btnCriar control.

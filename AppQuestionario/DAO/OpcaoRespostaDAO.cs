@@ -18,7 +18,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT * FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_pergunta = @id", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT * FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_pergunta = @id ORDER BY opr_nu_ordem", conexao);
                     comando.Parameters.Add(new SqlParameter("@id", idPergunta));
 
                     conexao.Open();
