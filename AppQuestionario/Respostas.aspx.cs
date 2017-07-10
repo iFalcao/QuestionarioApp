@@ -25,6 +25,7 @@ namespace AppQuestionario
 
                 if (Session["perguntaSelecionada"] != null)
                 {
+                    lblIdPergunta.Text = Session["perguntaSelecionada"].ToString();
                     carregarRespostas((int)Session["perguntaSelecionada"]);
                 }
             }
@@ -59,9 +60,9 @@ namespace AppQuestionario
             }
             else
             {
-                OpcaoResposta novaResposta = new OpcaoResposta(Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
-                if (opcaoDAO.possuiOrdemDiferente(novaResposta))
+                if (opcaoDAO.possuiOrdemDiferente(int.Parse(txtOrdem.Text), Convert.ToInt32(lblIdPergunta.Text)))
                 {
+                    OpcaoResposta novaResposta = new OpcaoResposta(Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
                     if (opcaoDAO.criarOpcaoResposta(novaResposta))
                     {
                         Response.Write("<script>alert('Resposta criada com sucesso!');</script>");

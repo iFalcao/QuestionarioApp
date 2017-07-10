@@ -9,6 +9,8 @@
     <hr />
     <div class="row">
         <div class="col-md-7">
+            <asp:Label ID="lblListandoPerguntas" runat="server" Text="Lista de Perguntas" CssClass="h4"></asp:Label>
+            <hr />
             <asp:GridView ID="tabelaPerguntas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaPerguntas_RowCommand" >
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
@@ -60,6 +62,7 @@
         <div class="col-md-5">
             <div class="form-horizontal col-md-12">
                 <asp:Label ID="lblAcao" runat="server" Text="" CssClass="h4"></asp:Label>
+                <hr />
                 <asp:ValidationSummary runat="server" CssClass="text-danger" />
                     <div class="form-group">
                         <asp:Label runat="server" ID="lblEditingId" AssociatedControlID="lblIdPergunta" CssClass="col-md-5">Id da Pergunta</asp:Label>

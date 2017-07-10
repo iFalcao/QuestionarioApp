@@ -72,7 +72,7 @@ namespace AppQuestionario.DAO
             return sucesso;
         }
 
-        public bool possuiOrdemDiferente(OpcaoResposta novaOpcaoResposta)
+        public bool possuiOrdemDiferente(int ordem, int idPergunta)
         {
             bool possui = true;
 
@@ -80,8 +80,8 @@ namespace AppQuestionario.DAO
                 try
                 {
                     SqlCommand comando = new SqlCommand("SELECT COUNT(*) FROM OPR_OPCAO_RESPOSTA_ifalcao WHERE opr_id_pergunta = @idPergunta AND opr_nu_ordem = @ordem", conexao);
-                    comando.Parameters.Add(new SqlParameter("@idPergunta", novaOpcaoResposta.IdPerguntaRelacionada));
-                    comando.Parameters.Add(new SqlParameter("@ordem", novaOpcaoResposta.Ordem));
+                    comando.Parameters.Add(new SqlParameter("@idPergunta", idPergunta));
+                    comando.Parameters.Add(new SqlParameter("@ordem", ordem));
 
                     conexao.Open();
                     if (Convert.ToInt32(comando.ExecuteScalar()) > 0)

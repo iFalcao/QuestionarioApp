@@ -42,7 +42,6 @@ namespace AppQuestionario
             {
                 ddlTipos.Enabled = true;
             }
-
             tabelaPerguntas.DataBind();
         }
 
