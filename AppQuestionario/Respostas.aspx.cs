@@ -120,7 +120,7 @@ namespace AppQuestionario
             {
                 lblIdResposta.Text = id.ToString();
                 txtDescricao.Text = (tabelaRespostas.Rows[index].FindControl("lblDescricao") as Label).Text;
-                preEdicao();
+                preEdicao(id);
             }
         }
 
@@ -130,6 +130,7 @@ namespace AppQuestionario
             OpcaoResposta respostaEditada = new OpcaoResposta(Convert.ToInt32(lblIdResposta.Text), Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (opcaoDAO.editarOpcaoResposta(respostaEditada))
             {
+                Response.Write("<script>alert('Resposta editada com sucesso!');</script>");
                 posEdicao();
                 carregarRespostas(Convert.ToInt32(lblIdResposta.Text));
             }
@@ -139,11 +140,11 @@ namespace AppQuestionario
             }
         }
 
-        private void preEdicao()
+        private void preEdicao(int idSelecionado)
         {
             lblIdResposta.Visible = true;
             lblEditingId.Visible = true;
-            lblAcao.Text = "Editar Resposta";
+            lblAcao.Text = "Editar resposta '" + opcaoDAO.getNome(idSelecionado) + "'";
             btnCriar.Visible = false;
             btnEditar.Visible = true;
         }

@@ -36,7 +36,7 @@ namespace AppQuestionario
         private void carregarPerguntas(int idQuestionario)
         {
             tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
-            
+            lblListandoPerguntas.Text = "Listando perguntas de '" + questDAO.getNome(idQuestionario) + "'";
             if (questDAO.ehAvaliacao(idQuestionario))
             {
                 // Não permite selecionar o tipo de múltipla escolha para questionários do tipo AVALIAÇÃO
@@ -128,7 +128,7 @@ namespace AppQuestionario
             {
                 lblIdPergunta.Text = id.ToString();
                 txtDescricao.Text = (tabelaPerguntas.Rows[index].FindControl("lblDescricao") as Label).Text;
-                preEdicao();
+                preEdicao(id);
             }
         }
 
@@ -137,6 +137,7 @@ namespace AppQuestionario
             Pergunta perguntaEditada = new Pergunta(int.Parse(lblIdPergunta.Text), int.Parse(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), chkObrigatoria.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (perguntaDAO.editarPergunta(perguntaEditada))
             {
+                Response.Write("<script>alert('Resposta atualizada com sucesso!');</script>");
                 posEdicao();
                 carregarPerguntas(Convert.ToInt32(ddlQuestionarios.SelectedValue));
             }
@@ -146,11 +147,11 @@ namespace AppQuestionario
             }
         }
 
-        private void preEdicao()
+        private void preEdicao(int idSelecionado)
         {
             lblIdPergunta.Visible = true;
             lblEditingId.Visible = true;
-            lblAcao.Text = "Editar Pergunta";
+            lblAcao.Text = "Editar pergunta '" + perguntaDAO.getNome(idSelecionado) + "'";
             btnCriar.Visible = false;
             btnEditar.Visible = true;
         }

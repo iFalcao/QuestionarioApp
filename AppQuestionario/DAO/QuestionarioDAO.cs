@@ -71,6 +71,11 @@ namespace AppQuestionario.DAO
             return GenericDAO.ExclusaoGenericaDeRegistros("QST_QUESTIONARIO_ifalcao", "qst_id_questionario", idQuestionario);
         }
 
+        public string getNome(int idQuestionario)
+        {
+            return GenericDAO.getNomeFromId("QST_QUESTIONARIO_ifalcao", "qst_nm_questionario", "qst_id_questionario", idQuestionario);
+        }
+
         public bool possuiAlgumaPergunta(int idQuestionario)
         {
             bool possui = false;

@@ -130,6 +130,11 @@ namespace AppQuestionario.DAO
             return GenericDAO.ExclusaoGenericaDeRegistros("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta", idResposta);
         }
 
+        public string getNome(int idPergunta)
+        {
+            return GenericDAO.getNomeFromId("OPR_OPCAO_RESPOSTA_ifalcao", "opr_ds_opcao_resposta", "opr_id_opcao_resposta", idPergunta);
+        }
+
         // Verifica se a pergunta possui alguma opção resposta selecionada como correta
         public bool possuiOpcaoCorretaParaPergunta(int idPergunta)
         {

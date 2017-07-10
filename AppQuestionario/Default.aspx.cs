@@ -91,7 +91,7 @@ namespace AppQuestionario
                     lblIdEdit.Text = id.ToString();
                     Nome.Text = (tabelaQuestionarios.Rows[index].FindControl("lblNome") as Label).Text;
                     Link.Text = (tabelaQuestionarios.Rows[index].FindControl("lblLink") as Label).Text;
-                    preEdicao();
+                    preEdicao(id);
                 }
                 catch(Exception)
                 {
@@ -117,11 +117,11 @@ namespace AppQuestionario
                 lblError.Text = "Link deve começar com 'Http://'";
             }
         }
-        private void preEdicao()
+        private void preEdicao(int idSelecionado)
         {
             lblEditingId.Visible = true;
             lblIdEdit.Visible = true;
-            lblAcao.Text = "Editar Questionário";
+            lblAcao.Text = "Editar questionário '" + questDAO.getNome(idSelecionado) + "'";
             btnCriar.Visible = false;
             btnEditar.Visible = true;
         }
