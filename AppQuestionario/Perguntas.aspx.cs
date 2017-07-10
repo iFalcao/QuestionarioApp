@@ -25,12 +25,14 @@ namespace AppQuestionario
                 ddlTipos.Items.Clear();
                 ddlTipos.Items.Add(new ListItem("Única Escolha", "U"));
                 ddlTipos.Items.Add(new ListItem("Múltipla Escolha", "M"));
+                posEdicao();
             }
         }
 
         private void carregarPerguntas(int idQuestionario)
         {
             tabelaPerguntas.DataSource = perguntaDAO.listaPerguntasDoQuestionario(idQuestionario);
+            
             if (questDAO.ehAvaliacao(idQuestionario))
             {
                 // Não permite selecionar o tipo de múltipla escolha para questionários do tipo AVALIAÇÃO
@@ -40,6 +42,7 @@ namespace AppQuestionario
             {
                 ddlTipos.Enabled = true;
             }
+
             tabelaPerguntas.DataBind();
         }
 
@@ -115,6 +118,46 @@ namespace AppQuestionario
                 Session["perguntaSelecionada"] = id;
                 Response.Redirect("Respostas.aspx");
             }
+            else if (e.CommandName == "Editar")
+            {
+                lblIdPergunta.Text = id.ToString();
+                txtDescricao.Text = (tabelaPerguntas.Rows[index].FindControl("lblDescricao") as Label).Text;
+                txtOrdem.Text = (tabelaPerguntas.Rows[index].FindControl("lblOrdem") as Label).Text;
+                preEdicao();
+            }
+        }
+
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            Pergunta perguntaEditada = new Pergunta(int.Parse(lblIdPergunta.Text), int.Parse(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), chkObrigatoria.Checked ? 'S' : 'N', int.Parse(txtOrdem.Text));
+            if (perguntaDAO.editarPergunta(perguntaEditada))
+            {
+                posEdicao();
+                carregarPerguntas(Convert.ToInt32(ddlQuestionarios.SelectedValue));
+            }
+            else
+            {
+                Response.Write("<script>alert('Erro ao editar resposta');</script>");
+            }
+        }
+
+        private void preEdicao()
+        {
+            lblIdPergunta.Visible = true;
+            lblEditingId.Visible = true;
+            lblAcao.Text = "Editar Pergunta";
+            btnCriar.Visible = false;
+            btnEditar.Visible = true;
+        }
+        private void posEdicao()
+        {
+            lblEditingId.Visible = false;
+            lblIdPergunta.Visible = false;
+            lblAcao.Text = "Criar Pergunta.";
+            btnCriar.Visible = true;
+            btnEditar.Visible = false;
+            txtDescricao.Text = "";
+            txtOrdem.Text = "";
         }
     }
 }

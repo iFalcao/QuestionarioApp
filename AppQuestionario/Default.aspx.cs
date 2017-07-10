@@ -33,7 +33,6 @@ namespace AppQuestionario
 
         protected void btnCriar_Click(object sender, EventArgs e)
         {
-            // Valida link
             if (Link.Text.StartsWith("Http://"))
             {
                 Questionario novoQuestionario = new Questionario(Nome.Text, char.Parse(ddlTipos.SelectedValue), Link.Text);

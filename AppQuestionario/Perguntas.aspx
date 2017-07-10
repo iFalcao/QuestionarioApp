@@ -8,7 +8,7 @@
     <asp:Button ID="btnListarPerguntas" runat="server" Text="Listar Perguntas" CssClass="btn btn-default" OnClick="btnListarPerguntas_Click"/>
     <hr />
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <asp:GridView ID="tabelaPerguntas" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowCommand="tabelaPerguntas_RowCommand" >
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
@@ -19,7 +19,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Descricao">
                         <ItemTemplate>
-                            <asp:Label ID="Label2" runat="server" Text='<%# Eval("descricao") %>'></asp:Label>
+                            <asp:Label ID="lblDescricao" runat="server" Text='<%# Eval("descricao") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Obrigatória">
@@ -34,12 +34,13 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ordem">
                         <ItemTemplate>
-                            <asp:Label ID="Label5" runat="server" Text='<%# Eval("ordem") %>'></asp:Label>
+                            <asp:Label ID="lblOrdem" runat="server" Text='<%# Eval("ordem") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btnVisualizar" runat="server" Text="Ver Respostas" CssClass="btn btn-info" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="VisualizarRespostas"/>
+                            <asp:Button ID="btnVisualizar" runat="server" Text="Respostas" CssClass="btn btn-info" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="VisualizarRespostas"/>
+                            <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn btn-warning" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Editar"/>
                             <asp:Button ID="btnExcluir" runat="server" Text="Excluir" CssClass="btn btn-danger" CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" CommandName="Excluir"/>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -56,19 +57,25 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="form-horizontal col-md-12">
-                <h4>Criar Pergunta.</h4>
+                <asp:Label ID="lblAcao" runat="server" Text="" CssClass="h4"></asp:Label>
                 <asp:ValidationSummary runat="server" CssClass="text-danger" />
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-4">Id do Questionário</asp:Label>
-                        <div class="col-md-8">
+                        <asp:Label runat="server" ID="lblEditingId" AssociatedControlID="lblIdPergunta" CssClass="col-md-5">Id da Pergunta</asp:Label>
+                        <div class="col-md-7">
+                            <asp:Label ID="lblIdPergunta" runat="server" Text=""></asp:Label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="lblIdQuestionario" CssClass="col-md-5">Id do Questionário</asp:Label>
+                        <div class="col-md-7">
                             <asp:Label ID="lblIdQuestionario" runat="server" Text=""></asp:Label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="txtDescricao" CssClass="col-md-4">Descrição da Pergunta</asp:Label>
-                        <div class="col-md-8">
+                        <asp:Label runat="server" AssociatedControlID="txtDescricao" CssClass="col-md-5">Descrição da Pergunta</asp:Label>
+                        <div class="col-md-7">
                             <!-- Create a validation group to allow two different 'forms' -->
                             <asp:TextBox runat="server" ID="txtDescricao" CssClass="form-control" ValidationGroup="Two"/>
                             <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="txtDescricao"
@@ -76,22 +83,22 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-4">Tipo de Pergunta</asp:Label>
-                        <div class="col-md-4">
+                        <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-5">Tipo de Pergunta</asp:Label>
+                        <div class="col-md-7">
                             <asp:DropDownList ID="ddlTipos" runat="server" CssClass="form-control" ValidationGroup="Two"></asp:DropDownList>
                             <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="ddlTipos"
                                 CssClass="text-danger" ErrorMessage="O tipo é obrigatório" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <asp:Label runat="server" CssClass="col-md-6">A pergunta é obrigatória?</asp:Label>
-                        <div class="col-md-4">
+                        <asp:Label runat="server" CssClass="col-md-5">A pergunta é obrigatória?</asp:Label>
+                        <div class="col-md-7">
                             <asp:CheckBox ID="chkObrigatoria" runat="server" />&nbsp;&nbsp;&nbsp;Sim
                         </div>
                     </div>
                     <div class="form-group">
-                        <asp:Label runat="server" AssociatedControlID="ddlTipos" CssClass="col-md-4">Ordem da pergunta</asp:Label>
-                        <div class="col-md-8">
+                        <asp:Label runat="server" AssociatedControlID="txtOrdem" CssClass="col-md-5">Ordem da pergunta</asp:Label>
+                        <div class="col-md-7">
                             <asp:TextBox ID="txtOrdem" runat="server"></asp:TextBox>
                             <asp:RequiredFieldValidator runat="server" Display="Dynamic" ValidationGroup="Two" ControlToValidate="txtOrdem"
                                 CssClass="text-danger" ErrorMessage="A ordem é obrigatória" />
@@ -100,6 +107,7 @@
                     <div class="form-group">
                         <div class="col-md-10">
                             <asp:Button ID="btnCriar" runat="server" Text="Criar Pergunta" CssClass="btn btn-success" OnClick="btnCriar_Click" />
+                            <asp:Button ID="btnEditar" runat="server" Text="Editar Pergunta" CssClass="btn btn-default" OnClick="btnEditar_Click" />
                         </div>
                     </div>
                 </div>

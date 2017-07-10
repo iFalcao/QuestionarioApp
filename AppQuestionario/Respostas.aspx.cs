@@ -34,6 +34,7 @@ namespace AppQuestionario
         private void carregarRespostas(int idPergunta)
         {
             tabelaRespostas.DataSource = opcaoDAO.listarOpcoesDaResposta(idPergunta);
+            tabelaRespostas.DataBind();
             if (opcaoDAO.possuiOpcaoCorretaParaPergunta(idPergunta))
             {
                 chkCorreta.Enabled = false;
@@ -42,7 +43,6 @@ namespace AppQuestionario
             {
                 chkCorreta.Enabled = true;
             }
-            tabelaRespostas.DataBind();
         }
 
         protected void btnListarRespostas_Click(object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace AppQuestionario.DAO
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao WHERE per_id_questionario = @id", conexao);
+                    SqlCommand comando = new SqlCommand("SELECT * FROM PER_PERGUNTA_ifalcao WHERE per_id_questionario = @id ORDER BY per_nu_ordem", conexao);
                     comando.Parameters.Add(new SqlParameter("@id", idQuestionario));
 
                     conexao.Open();
@@ -99,14 +99,14 @@ namespace AppQuestionario.DAO
             return GenericDAO.getLastId("PER_PERGUNTA_ifalcao");
         }
 
-        public bool editarOpcaoResposta(Pergunta pergunta)
+        public bool editarPergunta(Pergunta pergunta)
         {
             bool sucesso = false;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
                 {
-                    SqlCommand comando = new SqlCommand("UPDATE PER_PERGUNTA_ifalcao SET per_id_questionario = @idQuestionario, per_ds_pergunta = @descricao, per_tp_pergunta = @tipo , per_ch_resposta_obrigatoria = @obrigatoria, per_nu_ordem = @ordem WHERE per_id_pergunta = @id)", conexao);
+                    SqlCommand comando = new SqlCommand("UPDATE PER_PERGUNTA_ifalcao SET per_id_questionario = @idQuestionario, per_ds_pergunta = @descricao, per_tp_pergunta = @tipo , per_ch_resposta_obrigatoria = @obrigatoria, per_nu_ordem = @ordem WHERE per_id_pergunta = @id", conexao);
                     comando.Parameters.Add(new SqlParameter("@id", pergunta.Id));
                     comando.Parameters.Add(new SqlParameter("@idQuestionario", pergunta.IdQuestionario));
                     comando.Parameters.Add(new SqlParameter("@descricao", pergunta.Descricao));
