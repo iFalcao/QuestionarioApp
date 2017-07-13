@@ -154,7 +154,6 @@ namespace AppQuestionario.DAO
                 {
                     HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
                 }
-
             return possui;
         }
 
@@ -178,7 +177,6 @@ namespace AppQuestionario.DAO
                 {
                     HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
                 }
-
             return possui;
         }
 

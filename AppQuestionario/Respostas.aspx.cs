@@ -13,13 +13,13 @@ namespace AppQuestionario
     {
         PerguntaDAO perguntaDAO = new PerguntaDAO();
         OpcaoRespostaDAO opcaoDAO = new OpcaoRespostaDAO();
-        QuestionarioDAO questDAO = new QuestionarioDAO();
+        QuestionarioDAO questionarioDAO = new QuestionarioDAO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                ddlQuestionarios.DataSource = questDAO.getAllQuestionarios();
+                ddlQuestionarios.DataSource = questionarioDAO.getAllQuestionarios();
                 ddlQuestionarios.DataTextField = "Nome";
                 ddlQuestionarios.DataValueField = "Id";
                 ddlQuestionarios.DataBind();

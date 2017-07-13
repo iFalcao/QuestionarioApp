@@ -38,7 +38,7 @@ namespace AppQuestionario.DAO
         // Retorna a quantidade de ids registrados recebendo o nome da tabela que deseja consultar
         public static int getLastId(string nomeTabela, string nomeColunaId)
         {
-            int resultado = 0;
+            int linhasAfetadas = 0;
 
             using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
                 try
@@ -47,14 +47,14 @@ namespace AppQuestionario.DAO
                     SqlCommand comando = new SqlCommand(sql, conexao);
 
                     conexao.Open();
-                    resultado = Convert.ToInt32(comando.ExecuteScalar());
+                    linhasAfetadas = Convert.ToInt32(comando.ExecuteScalar());
                 }
                 catch (Exception)
                 {
                     HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
                 }
 
-            return resultado;
+            return linhasAfetadas;
         }
 
         public static string getNomeFromId(string tabela, string colunaNome, string colunaId, int valorId)
