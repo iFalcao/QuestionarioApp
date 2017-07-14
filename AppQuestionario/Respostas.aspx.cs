@@ -103,8 +103,8 @@ namespace AppQuestionario
 
         protected void tabelaRespostas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            int id = Convert.ToInt32((tabelaRespostas.Rows[index].FindControl("lblId") as Label).Text);
+            int LinhaSelecionada = Convert.ToInt32(e.CommandArgument);
+            int id = Convert.ToInt32((tabelaRespostas.Rows[LinhaSelecionada].FindControl("lblId") as Label).Text);
 
             if (e.CommandName == "Excluir")
             {
@@ -128,7 +128,8 @@ namespace AppQuestionario
             else if (e.CommandName == "Editar")
             {
                 lblIdResposta.Text = id.ToString();
-                txtDescricao.Text = (tabelaRespostas.Rows[index].FindControl("lblDescricao") as Label).Text;
+                txtDescricao.Text = (tabelaRespostas.Rows[LinhaSelecionada].FindControl("lblDescricao") as Label).Text;
+                chkCorreta.Checked = (tabelaRespostas.Rows[LinhaSelecionada].FindControl("lblCorreta") as Label).Text.Equals("Sim") ? true : false;
                 preEdicao(id);
             }
         }

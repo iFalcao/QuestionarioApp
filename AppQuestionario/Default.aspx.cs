@@ -47,6 +47,7 @@ namespace AppQuestionario
                 }
                 else
                 {
+                    lblError.Visible = true;
                     lblError.Text = "Link deve começar com 'Http://'";
                 }
             } catch (Exception)
@@ -108,6 +109,7 @@ namespace AppQuestionario
                     }
                     Nome.Text = (tabelaQuestionarios.Rows[LinhaSelecionada].FindControl("lblNome") as Label).Text;
                     Link.Text = (tabelaQuestionarios.Rows[LinhaSelecionada].FindControl("lblLink") as Label).Text;
+                    ddlTipos.SelectedValue = (tabelaQuestionarios.Rows[LinhaSelecionada].FindControl("lblTipo") as Label).Text.Equals("Pesquisa") ? "P" : "A";
                     preEdicao(id);
                 }
                 catch(Exception)
@@ -140,6 +142,7 @@ namespace AppQuestionario
                 }
                 else
                 {
+                    lblError.Visible = true;
                     lblError.Text = "Link deve começar com 'Http://'";
                 }
             }
@@ -158,6 +161,7 @@ namespace AppQuestionario
         }
         private void posEdicao()
         {
+            lblError.Visible = false;
             lblEditingId.Visible = false;
             lblIdEdit.Visible = false;
             lblAcao.Text = "Criar Questionário";

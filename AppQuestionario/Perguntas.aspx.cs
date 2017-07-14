@@ -95,8 +95,8 @@ namespace AppQuestionario
 
         protected void tabelaPerguntas_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int index = Convert.ToInt32(e.CommandArgument);
-            int id = Convert.ToInt32((tabelaPerguntas.Rows[index].FindControl("lblId") as Label).Text);
+            int LinhaSelecionada = Convert.ToInt32(e.CommandArgument);
+            int id = Convert.ToInt32((tabelaPerguntas.Rows[LinhaSelecionada].FindControl("lblId") as Label).Text);
 
             if (e.CommandName == "Excluir")
             {
@@ -132,7 +132,8 @@ namespace AppQuestionario
             else if (e.CommandName == "Editar")
             {
                 lblIdPergunta.Text = id.ToString();
-                txtDescricao.Text = (tabelaPerguntas.Rows[index].FindControl("lblDescricao") as Label).Text;
+                txtDescricao.Text = (tabelaPerguntas.Rows[LinhaSelecionada].FindControl("lblDescricao") as Label).Text;
+                ddlTipos.SelectedValue = (tabelaPerguntas.Rows[LinhaSelecionada].FindControl("lblTipos") as Label).Text.Equals("Única Escolha") ? "U" : "M";
                 preEdicao(id);
             }
         }

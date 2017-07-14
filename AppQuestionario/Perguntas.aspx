@@ -31,7 +31,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Tipo">
                         <ItemTemplate>
-                            <asp:Label ID="Label4" runat="server"  Text='<%# Eval("tipo").Equals(Convert.ToChar("U")) ? "Única Escolha" : "Múltipla Escolha" %>'></asp:Label>
+                            <asp:Label ID="lblTipos" runat="server"  Text='<%# Eval("tipo").Equals(Convert.ToChar("U")) ? "Única Escolha" : "Múltipla Escolha" %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Ordem">

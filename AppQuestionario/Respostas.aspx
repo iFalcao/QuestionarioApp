@@ -34,7 +34,7 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Correta">
                     <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" Text='<%# Eval("correta").Equals(Convert.ToChar("S")) ? "Sim" : "Não" %>'></asp:Label>
+                        <asp:Label ID="lblCorreta" runat="server" Text='<%# Eval("correta").Equals(Convert.ToChar("S")) ? "Sim" : "Não" %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Ordem">
