@@ -127,7 +127,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarResposta(int idResposta)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta", idResposta);
+            return GenericDAO.deleteFromId("OPR_OPCAO_RESPOSTA_ifalcao", "opr_id_opcao_resposta", idResposta);
         }
 
         public string getNome(int idPergunta)

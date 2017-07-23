@@ -68,7 +68,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarQuestionario(int idQuestionario)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("QST_QUESTIONARIO_ifalcao", "qst_id_questionario", idQuestionario);
+            return GenericDAO.deleteFromId("QST_QUESTIONARIO_ifalcao", "qst_id_questionario", idQuestionario);
         }
 
         public string getNome(int idQuestionario)

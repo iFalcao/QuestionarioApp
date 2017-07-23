@@ -10,28 +10,31 @@ namespace AppQuestionario.DAO
 {
     public class GenericDAO
     {
-        public static bool ExclusaoGenericaDeRegistros(string nomeTabela, string nomeColuna, int id)
+
+        private static SqlConnection getConexao()
+        {
+            return new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+        }
+
+        public static bool deleteFromId(string nomeTabela, string nomeColunaId, int id)
         {
             bool sucesso = false;
 
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            using (SqlConnection conexao = getConexao())
                 try
                 {
-                    string sql = String.Format("DELETE FROM {0} WHERE {1} = @id", nomeTabela, nomeColuna);
+                    string sql = String.Format("DELETE FROM {0} WHERE {1} = @id", nomeTabela, nomeColunaId);
                     SqlCommand comando = new SqlCommand(sql, conexao);
                     comando.Parameters.Add(new SqlParameter("@id", id));
 
                     conexao.Open();
                     if (comando.ExecuteNonQuery() > 0)
-                    {
                         sucesso = true;
-                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método de exclusão')<script>");
+                    exibeMensagemErro(ex.Message);
                 }
-
             return sucesso;
         }
 
@@ -40,7 +43,7 @@ namespace AppQuestionario.DAO
         {
             int linhasAfetadas = 0;
 
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            using (SqlConnection conexao = getConexao())
                 try
                 {
                     string sql = String.Format("SELECT MAX({0}) FROM {1}", nomeColunaId, nomeTabela);
@@ -49,9 +52,9 @@ namespace AppQuestionario.DAO
                     conexao.Open();
                     linhasAfetadas = Convert.ToInt32(comando.ExecuteScalar());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                    exibeMensagemErro(ex.Message);
                 }
 
             return linhasAfetadas;
@@ -61,7 +64,7 @@ namespace AppQuestionario.DAO
         {
             string nome = null;
 
-            using (SqlConnection conexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            using (SqlConnection conexao = getConexao())
                 try
                 {
                     string sql = String.Format("SELECT {0} FROM {1} WHERE {2} = @id", colunaNome, tabela, colunaId);
@@ -71,12 +74,18 @@ namespace AppQuestionario.DAO
                     conexao.Open();
                     nome = comando.ExecuteScalar().ToString();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Erro na execução do método')<script>");
+                    exibeMensagemErro(ex.Message);
                 }
 
             return nome;
+        }
+
+        private static void exibeMensagemErro(string mensagem)
+        {
+            string msgErro = String.Format("<script>alert('Erro: {0}')<script>", mensagem);
+            HttpContext.Current.Response.Write(msgErro);
         }
     }
 }

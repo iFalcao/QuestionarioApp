@@ -3,6 +3,7 @@ using AppQuestionario.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -35,7 +36,6 @@ namespace AppQuestionario
                     carregarRespostas((int)Session["perguntaSelecionada"]);
                 }
             }
-            
         }
 
         private void carregarRespostas(int idPergunta)
@@ -108,21 +108,14 @@ namespace AppQuestionario
 
             if (e.CommandName == "Excluir")
             {
-                try
+                if (opcaoDAO.deletarResposta(id))
                 {
-                    if (opcaoDAO.deletarResposta(id))
-                     {
-                        Response.Write("<script>alert('Resposta excluída com sucesso!');</script>");
-                        carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('Não foi possível deletar a resposta!');</script>");
-                    }
+                    Response.Write("<script>alert('Resposta excluída com sucesso!');</script>");
+                    carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
                 }
-                catch (Exception)
+                else
                 {
-                    Response.Write("<script>alert('Erro ao executar método');</script>");
+                    Response.Write("<script>alert('Erro: Não foi possível excluir a pergunta.');</script>");
                 }
             }
             else if (e.CommandName == "Editar")
@@ -133,7 +126,6 @@ namespace AppQuestionario
                 preEdicao(id);
             }
         }
-
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {

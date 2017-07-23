@@ -182,7 +182,7 @@ namespace AppQuestionario.DAO
 
         public bool deletarPergunta(int idPergunta)
         {
-            return GenericDAO.ExclusaoGenericaDeRegistros("PER_PERGUNTA_ifalcao", "per_id_pergunta", idPergunta);
+            return GenericDAO.deleteFromId("PER_PERGUNTA_ifalcao", "per_id_pergunta", idPergunta);
         }
     }
 }
