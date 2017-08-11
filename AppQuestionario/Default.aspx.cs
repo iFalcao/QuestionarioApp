@@ -42,7 +42,7 @@ namespace AppQuestionario
                     Questionario novoQuestionario = new Questionario(Nome.Text, char.Parse(ddlTipos.SelectedValue), Link.Text);
                     if (questionarioDAO.criarQuestionario(novoQuestionario))
                     {
-                        Response.Write("<script>alert('Questionário Criado com Sucesso!')<script>");
+                        this.AddAlertSuccessMessage("Questionário criado com Sucesso!");
                         carregaValores();
                     }
                 }
@@ -81,7 +81,7 @@ namespace AppQuestionario
                     {
                         if (questionarioDAO.deletarQuestionario(id))
                         {
-                            Response.Write("<script>alert('Questionário excluído com sucesso!');</script>");
+                            this.AddAlertSuccessMessage("Questionário excluído com Sucesso!");
                             carregaValores();
                         }
                         else
@@ -131,13 +131,12 @@ namespace AppQuestionario
         {
             try
             {
-                throw new Exception("teste");
                 if (validaLinkDoQuestionario(Link.Text))
                 {
                     Questionario novoQuestionario = new Questionario(int.Parse(lblIdEdit.Text), Nome.Text, char.Parse(ddlTipos.SelectedValue), Link.Text);
                     if (questionarioDAO.editarQuestionario(novoQuestionario))
                     {
-                        Response.Write("<script>alert('Questionário Atualizado com Sucesso!')<script>");
+                        this.AddAlertSuccessMessage("Questionário Atualizado com Sucesso!");
                         ddlTipos.Enabled = true;
                         posEdicao();
                         carregaValores();

@@ -9,3 +9,15 @@
             type: 'danger'
     });
 }
+
+function successAlert(mensagemDeSucesso) {
+    $.notify({
+        message: mensagemDeSucesso
+    }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            type: 'success'
+        });
+}

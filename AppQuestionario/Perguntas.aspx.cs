@@ -73,7 +73,7 @@ namespace AppQuestionario
                     Pergunta novaPergunta = new Pergunta(idQuestionario, txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), obrigatoria, ordem);
                     if (perguntaDAO.criarPergunta(novaPergunta))
                     {
-                        Response.Write("<script>alert('Pergunta criada com sucesso!');</script>");
+                        this.AddAlertSuccessMessage("Pergunta criada com sucesso!");
                         carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
                     }
                     else
@@ -111,7 +111,7 @@ namespace AppQuestionario
                     {
                         if (perguntaDAO.deletarPergunta(id))
                         {
-                            Response.Write("<script>alert('Pergunta excluída com sucesso!');</script>");
+                            this.AddAlertSuccessMessage("Resposta excluída com sucesso!");
                             carregarPerguntas(Convert.ToInt32(lblIdQuestionario.Text));
                         }
                         else
@@ -144,7 +144,7 @@ namespace AppQuestionario
             Pergunta perguntaEditada = new Pergunta(int.Parse(lblIdPergunta.Text), int.Parse(lblIdQuestionario.Text), txtDescricao.Text, char.Parse(ddlTipos.SelectedValue), chkObrigatoria.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (perguntaDAO.editarPergunta(perguntaEditada))
             {
-                Response.Write("<script>alert('Resposta atualizada com sucesso!');</script>");
+                this.AddAlertSuccessMessage("Resposta editada com sucesso!");
                 posEdicao();
                 carregarPerguntas(Convert.ToInt32(ddlQuestionarios.SelectedValue));
             }

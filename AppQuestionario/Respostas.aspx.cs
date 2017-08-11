@@ -86,7 +86,7 @@ namespace AppQuestionario
                     OpcaoResposta novaResposta = new OpcaoResposta(idPergunta, txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', ordem);
                     if (opcaoDAO.criarOpcaoResposta(novaResposta))
                     {
-                        Response.Write("<script>alert('Resposta criada com sucesso!');</script>");
+                        this.AddAlertSuccessMessage("Resposta criada com sucesso!");
                         carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
                     }
                     else
@@ -111,7 +111,7 @@ namespace AppQuestionario
             {
                 if (opcaoDAO.deletarResposta(id))
                 {
-                    Response.Write("<script>alert('Resposta excluída com sucesso!');</script>");
+                    this.AddAlertSuccessMessage("Resposta excluída com sucesso!");
                     carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
                 }
                 else
@@ -133,7 +133,7 @@ namespace AppQuestionario
             OpcaoResposta respostaEditada = new OpcaoResposta(Convert.ToInt32(lblIdResposta.Text), Convert.ToInt32(lblIdPergunta.Text), txtDescricao.Text, chkCorreta.Checked ? 'S' : 'N', int.Parse(ddlOrdem.SelectedValue));
             if (opcaoDAO.editarOpcaoResposta(respostaEditada))
             {
-                Response.Write("<script>alert('Resposta editada com sucesso!');</script>");
+                this.AddAlertSuccessMessage("Resposta editada com sucesso!");
                 posEdicao();
                 carregarRespostas(Convert.ToInt32(lblIdPergunta.Text));
             }
