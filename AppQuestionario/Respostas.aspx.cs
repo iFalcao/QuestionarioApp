@@ -7,10 +7,11 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AppQuestionario.BasePages;
 
 namespace AppQuestionario
 {
-    public partial class Respostas : System.Web.UI.Page
+    public partial class Respostas : BasePage
     {
         PerguntaDAO perguntaDAO = new PerguntaDAO();
         OpcaoRespostaDAO opcaoDAO = new OpcaoRespostaDAO();
@@ -73,7 +74,7 @@ namespace AppQuestionario
         {
             if (lblIdPergunta.Text == "")
             {
-                Response.Write("<script>alert('Precisa selecionar uma resposta antes!');</script>");
+                this.AddAlertErrorMessage("Precisa selecionar um questionário antes!");
             }
             else
             {
@@ -90,12 +91,12 @@ namespace AppQuestionario
                     }
                     else
                     {
-                        Response.Write("<script>alert('Não foi possível criar a resposta!');</script>");
+                        this.AddAlertErrorMessage("Não foi possível criar a resposta!");
                     }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Já existe uma resposta com essa ordem! Mude a ordem e tente novamente.');</script>");
+                    this.AddAlertErrorMessage("Já existe uma resposta com essa ordem! Mude a ordem e tente novamente.");
                 }
 
             }
@@ -115,7 +116,7 @@ namespace AppQuestionario
                 }
                 else
                 {
-                    Response.Write("<script>alert('Erro: Não foi possível excluir a pergunta.');</script>");
+                    this.AddAlertErrorMessage("Não foi possível excluir a pergunta.");
                 }
             }
             else if (e.CommandName == "Editar")
@@ -138,7 +139,7 @@ namespace AppQuestionario
             }
             else
             {
-                Response.Write("<script>alert('Erro ao editar resposta');</script>");
+                this.AddAlertErrorMessage("Erro ao editar resposta");
             }
         }
 

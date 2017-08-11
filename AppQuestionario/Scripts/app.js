@@ -1,3 +1,11 @@
 ﻿function erroAlert(mensagemDeErro) {
-    alert(mensagemDeErro);
+    $.notify({
+        message: mensagemDeErro
+    }, {
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            type: 'danger'
+    });
 }

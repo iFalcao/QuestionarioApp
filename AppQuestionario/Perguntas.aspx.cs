@@ -6,10 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using AppQuestionario.BasePages;
 
 namespace AppQuestionario
 {
-    public partial class Perguntas : System.Web.UI.Page
+    public partial class Perguntas : BasePage
     {
         QuestionarioDAO questDAO = new QuestionarioDAO();
         PerguntaDAO perguntaDAO = new PerguntaDAO();
@@ -59,7 +60,7 @@ namespace AppQuestionario
         {
             if (lblIdQuestionario.Text == "")
             {
-                Response.Write("<script>alert('Precisa selecionar um questionário antes!');</script>");
+                this.AddAlertErrorMessage("Precisa selecionar um questionário antes!");
             }
             else
             {
@@ -77,12 +78,12 @@ namespace AppQuestionario
                     }
                     else
                     {
-                        Response.Write("<script>alert('Não foi possível criar a pergunta!');</script>");
+                        this.AddAlertErrorMessage("Não foi possível criar a pergunta!");
                     }
                 }
                 else
                 {
-                    Response.Write("<script>alert('Já existe uma pergunta com essa ordem! Mude a ordem e tente novamente.');</script>");
+                    this.AddAlertErrorMessage("Já existe uma pergunta com essa ordem! Mude a ordem e tente novamente.");
                 }
             
             }
@@ -104,7 +105,7 @@ namespace AppQuestionario
                 {
                     if (perguntaDAO.possuiAlgumaOpcaoResposta(id))
                     {
-                        Response.Write("<script>alert('A pergunta possui uma opção de resposta e portanto não pode ser deletada!');</script>");
+                        this.AddAlertErrorMessage("A pergunta possui uma opção de resposta e portanto não pode ser deletada!");
                     }
                     else
                     {
@@ -115,13 +116,13 @@ namespace AppQuestionario
                         }
                         else
                         {
-                            Response.Write("<script>alert('Não foi possível deletar a pergunta!');</script>");
+                            this.AddAlertErrorMessage("Não foi possível deletar a pergunta!");
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Erro ao executar método');</script>");
+                    this.AddAlertErrorMessage(ex.Message);
                 }
             }
             else if (e.CommandName == "VisualizarRespostas")
@@ -149,7 +150,7 @@ namespace AppQuestionario
             }
             else
             {
-                Response.Write("<script>alert('Erro ao editar pergunta');</script>");
+                this.AddAlertErrorMessage("Erro ao editar pergunta");
             }
         }
 

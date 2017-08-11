@@ -6,10 +6,11 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AppQuestionario.Models;
+using AppQuestionario.BasePages;
 
 namespace AppQuestionario
 {
-    public partial class _Default : Page
+    public partial class _Default : BasePage
     {
         QuestionarioDAO questionarioDAO = new QuestionarioDAO();
 
@@ -51,9 +52,9 @@ namespace AppQuestionario
                     lblError.Text = "Link deve começar com 'http://'";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Write("<script>alert('Erro ao executar a criação do questionário')<script>");
+                this.AddAlertErrorMessage(ex.Message);
             }
             
         }
@@ -74,7 +75,7 @@ namespace AppQuestionario
                 {
                     if (questionarioDAO.possuiAlgumaPergunta(id))
                     {
-                        Response.Write("<script>alert('Questionário possui uma pergunta e portanto não pode ser deletado!');</script>");
+                        this.AddAlertErrorMessage("Questionário possui uma pergunta e portanto não pode ser deletado!");
                     }
                     else
                     {
@@ -85,14 +86,14 @@ namespace AppQuestionario
                         }
                         else
                         {
-                            Response.Write("<script>alert('Não foi possível deletar o questionário!');</script>");
+                            this.AddAlertErrorMessage("Não foi possível deletar o questionário!");
                         }
                     }
                    
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Erro ao executar método de exclusão do questionário');</script>");
+                    this.AddAlertErrorMessage(ex.Message);
                 }
             }
             else if (e.CommandName == "Editar")
@@ -113,9 +114,9 @@ namespace AppQuestionario
                     ddlTipos.SelectedValue = (tabelaQuestionarios.Rows[LinhaSelecionada].FindControl("lblTipo") as Label).Text.Equals("Pesquisa") ? "P" : "A";
                     preEdicao(id);
                 }
-                catch(Exception)
+                catch(Exception ex)
                 {
-                    Response.Write("<script>alert('Erro ao editar o registro');</script>");
+                    this.AddAlertErrorMessage(ex.Message);
                 }
             }
             else if (e.CommandName == "VisualizarPerguntas")
@@ -130,6 +131,7 @@ namespace AppQuestionario
         {
             try
             {
+                throw new Exception("teste");
                 if (validaLinkDoQuestionario(Link.Text))
                 {
                     Questionario novoQuestionario = new Questionario(int.Parse(lblIdEdit.Text), Nome.Text, char.Parse(ddlTipos.SelectedValue), Link.Text);
@@ -149,8 +151,7 @@ namespace AppQuestionario
             }
             catch (Exception ex)
             {
-                string jsFunction = "erroAlert('Erro: " + ex.Message + "')";
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "alertaErro", jsFunction, true);
+                this.AddAlertErrorMessage(ex.Message);
             }
         }
         private void preEdicao(int idSelecionado)
@@ -171,6 +172,7 @@ namespace AppQuestionario
             btnEditar.Visible = false;
             Nome.Text = "";
             Link.Text = "";
+            lblError.Visible = false;
         }
                     
     }

@@ -108,4 +108,8 @@
             </div>
       </div>
     </div>
+    <script src="Scripts/jquery-3.2.1.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/bootstrap-notify.js"></script>
+    <script src="Scripts/app.js"></script>
 </asp:Content>
