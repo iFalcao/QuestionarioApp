@@ -18,18 +18,18 @@ namespace AppQuestionario
             if (!IsPostBack)
             {
                 // A função 'posEdicao' irá mostrar a parte de inserção de novos registros ao invés da parte de edição
-                posEdicao();
-                carregaValores();
+                this.posEdicao();
+                this.carregaValores();
             }
         }
 
         private void carregaValores()
         {
-            tabelaQuestionarios.DataSource = questionarioDAO.getAllQuestionarios();
-            tabelaQuestionarios.DataBind();
-            ddlTipos.Items.Clear();
-            ddlTipos.Items.Add(new ListItem("Pesquisa", "P"));
-            ddlTipos.Items.Add(new ListItem("Avaliação", "A"));
+            this.tabelaQuestionarios.DataSource = questionarioDAO.getAllQuestionarios();
+            this.tabelaQuestionarios.DataBind();
+            this.ddlTipos.Items.Clear();
+            this.ddlTipos.Items.Add(new ListItem("Pesquisa", "P"));
+            this.ddlTipos.Items.Add(new ListItem("Avaliação", "A"));
         }
 
         protected void btnCriar_Click(object sender, EventArgs e)
@@ -147,9 +147,10 @@ namespace AppQuestionario
                     lblError.Text = "Link deve começar com 'http://'";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Response.Write("<script>alert('Erro ao executar a criação do questionário')<script>");
+                string jsFunction = "erroAlert('Erro: " + ex.Message + "')";
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "alertaErro", jsFunction, true);
             }
         }
         private void preEdicao(int idSelecionado)
