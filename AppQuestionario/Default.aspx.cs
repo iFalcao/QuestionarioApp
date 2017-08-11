@@ -48,9 +48,10 @@ namespace AppQuestionario
                 else
                 {
                     lblError.Visible = true;
-                    lblError.Text = "Link deve começar com 'Http://'";
+                    lblError.Text = "Link deve começar com 'http://'";
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 Response.Write("<script>alert('Erro ao executar a criação do questionário')<script>");
             }
@@ -59,7 +60,7 @@ namespace AppQuestionario
 
         private bool validaLinkDoQuestionario(string text)
         {
-            return Link.Text.StartsWith("Http://");
+            return Link.Text.StartsWith("http://");
         }
 
         protected void tabelaQuestionarios_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -143,7 +144,7 @@ namespace AppQuestionario
                 else
                 {
                     lblError.Visible = true;
-                    lblError.Text = "Link deve começar com 'Http://'";
+                    lblError.Text = "Link deve começar com 'http://'";
                 }
             }
             catch (Exception)
